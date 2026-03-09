@@ -23,7 +23,6 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private User customer;
 
-    //Are we using current datetime for this or preassigned?
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @NotEmpty
