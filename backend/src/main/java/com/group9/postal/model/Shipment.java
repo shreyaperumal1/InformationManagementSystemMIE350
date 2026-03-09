@@ -18,7 +18,7 @@ public class Shipment {
     private Long shipmentId;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "orderId")
     private Order order;
 
     @NotEmpty
@@ -37,7 +37,7 @@ public class Shipment {
 
     @Nullable
     @ManyToOne
-    @JoinColumn(name = "current_warehouse_id")
+    @JoinColumn(name = "currentWarehouseId")
     private Warehouse currentWarehouse;
 
     public Shipment(Order order, String trackingNumber, String type,

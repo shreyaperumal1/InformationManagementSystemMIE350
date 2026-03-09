@@ -19,12 +19,12 @@ public class StopShipment {
 
     @ManyToOne
     @MapsId("stopId")
-    @JoinColumn(name = "stop_id")
+    @JoinColumn(name = "stopId")
     private RouteStop routeStop;
 
     @ManyToOne
     @MapsId("shipmentId")
-    @JoinColumn(name = "shipment_id")
+    @JoinColumn(name = "shipmentId")
     private Shipment shipment;
 
     @NotEmpty

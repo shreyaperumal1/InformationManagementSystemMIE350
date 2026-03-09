@@ -23,7 +23,7 @@ public class TrackingEventController {
 
     @GetMapping("/tracking/shipment/{shipmentId}")
     List<TrackingEvent> retrieveEventsByShipment(@PathVariable("shipmentId") Long shipmentId) {
-        return repository.findByShipmentIdOrderByTimestamp(shipmentId);
+        return repository.findByShipmentShipmentIdOrderByTimestamp(shipmentId);
     }
 
     @PostMapping("/tracking")

@@ -20,7 +20,7 @@ public class Order {
     private Long orderId;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customerId")
     private User customer;
 
     private LocalDateTime createdAt = LocalDateTime.now();

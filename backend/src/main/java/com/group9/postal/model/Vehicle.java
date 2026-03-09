@@ -27,7 +27,7 @@ public class Vehicle {
     private float capacityVolume;
 
     @ManyToOne
-    @JoinColumn(name = "assigned_driver_id")
+    @JoinColumn(name = "assignedDriverId")
     private User assignedDriver;
 
     public Vehicle(String plate, String type, float capacityWeight, float capacityVolume, User assignedDriver) {

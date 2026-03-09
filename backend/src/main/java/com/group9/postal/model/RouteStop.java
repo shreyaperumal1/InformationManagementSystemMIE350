@@ -21,7 +21,7 @@ public class RouteStop {
     private Long stopId;
 
     @ManyToOne
-    @JoinColumn(name = "route_id")
+    @JoinColumn(name = "routeId")
     private Route route;
 
     private int stopSequence;

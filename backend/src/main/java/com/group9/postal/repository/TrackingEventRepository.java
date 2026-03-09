@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface TrackingEventRepository extends JpaRepository<TrackingEvent, Long> {
-    List<TrackingEvent> findByShipmentIdOrderByTimestamp(Long shipmentId);
+    List<TrackingEvent> findByShipmentShipmentIdOrderByTimestamp(Long shipmentId);
 }

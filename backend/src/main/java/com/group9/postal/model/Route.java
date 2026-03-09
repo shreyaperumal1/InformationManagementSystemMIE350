@@ -21,11 +21,11 @@ public class Route {
     private Long routeId;
 
     @ManyToOne
-    @JoinColumn(name = "driver_id")
+    @JoinColumn(name = "driverId")
     private User driver;
 
     @ManyToOne
-    @JoinColumn(name = "warehouse_id")
+    @JoinColumn(name = "warehouseId")
     private Warehouse warehouse;
 
     @NotEmpty

@@ -19,7 +19,7 @@ public class TrackingEvent {
     private Long eventId;
 
     @ManyToOne
-    @JoinColumn(name = "shipment_id")
+    @JoinColumn(name = "shipmentId")
     private Shipment shipment;
 
     private LocalDateTime timestamp = LocalDateTime.now();
@@ -33,8 +33,7 @@ public class TrackingEvent {
     @Nullable
     private String note;
 
-    public TrackingEvent(Shipment shipment, String status,
-                         String locationText, String note) {
+    public TrackingEvent(Shipment shipment, String status, String locationText, String note) {
         this.shipment = shipment;
         this.status = status;
         this.locationText = locationText;
