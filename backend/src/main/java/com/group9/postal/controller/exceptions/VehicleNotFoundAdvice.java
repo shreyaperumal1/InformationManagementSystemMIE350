@@ -4,12 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @ControllerAdvice
-public class WarehouseNotFoundAdvice {
+public class VehicleNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(WarehouseNotFoundException.class)
+    @ExceptionHandler(VehicleNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String warehouseNotFoundHandler(WarehouseNotFoundException ex) {
+    String vehicleNotFoundHandler(VehicleNotFoundException ex) {
         return ex.getMessage();
     }
 }
