@@ -12,7 +12,11 @@ INSERT INTO users (user_id, name, email, password_hash, role, phone) VALUES
     (10,'Jimmy John', 'jimmy@gmail.com', 'password123', 'CUSTOMER', '123-456-1010');
 
 -- Warehouses
-
+INSERT INTO warehouse (warehouse_id, name, address, capacity_max_packages, region) VALUES
+    (1, 'Toronto Warehouse', '' , 5000, 'Toronto'),
+    (2, 'Mississauga Warehouse', '', 2000, 'Mississauga'),
+    (3, 'Scarborough Warehouse', '', 3000, 'Scarborough'),
+    (4, 'Brampton Warehouse', '', 3000, 'Brampton');
 -- Vehicles
 
 -- Orders
