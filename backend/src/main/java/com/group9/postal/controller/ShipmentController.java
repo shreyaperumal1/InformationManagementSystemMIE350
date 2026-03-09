@@ -1,4 +1,4 @@
 package com.group9.postal.controller;
 
-public class FacilityController {
+public class ShipmentController {
 }
