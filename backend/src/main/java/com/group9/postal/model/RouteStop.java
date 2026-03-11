@@ -29,13 +29,12 @@ public class RouteStop {
     @NotEmpty
     private String stopAddress;
 
-    @Enumerated(EnumType.STRING)
     private enum StopType {
         PICKUP,
         DELIVERY
     };
 
-    @NotEmpty
+    @Enumerated(EnumType.STRING)
     private StopType stopType;
 
     @Nullable

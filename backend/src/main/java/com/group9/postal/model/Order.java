@@ -26,10 +26,14 @@ public class Order {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @NotEmpty
-    private int pickupAddress;
+    @ManyToOne
+    @JoinColumn(name = "addressId")
+    private Address pickupAddress;
 
     @NotEmpty
-    private int dropoffAddress;
+    @ManyToOne
+    @JoinColumn(name = "addressId")
+    private Address dropoffAddress;
 
     @Nullable
     private BigDecimal totalCost;
@@ -37,7 +41,7 @@ public class Order {
     @NotEmpty
     private String orderStatus;
 
-    public Order(User customer, int pickupAddress, int dropoffAddress,
+    public Order(User customer, Address pickupAddress, Address dropoffAddress,
                  BigDecimal totalCost, String orderStatus) {
         this.customer = customer;
         this.pickupAddress = pickupAddress;

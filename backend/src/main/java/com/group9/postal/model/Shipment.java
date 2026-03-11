@@ -37,7 +37,7 @@ public class Shipment {
 
     @Nullable
     @ManyToOne
-    @JoinColumn(name = "currentWarehouseId")
+    @JoinColumn(name = "currentwarehouseId")
     private Warehouse currentWarehouse;
 
     public Shipment(Order order, String trackingNumber, String type,

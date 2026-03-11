@@ -47,7 +47,7 @@ public class RouteController {
     Route updateRoute(@RequestBody Route newRoute, @PathVariable("id") Long routeId) {
         return repository.findById(routeId)
                 .map(route -> {
-                    route.setRouteType(newRoute.getRouteType());
+                    route.setStops(newRoute.getStops());
                     route.setRouteStatus(newRoute.getRouteStatus());
                     route.setPlannedStartTime(newRoute.getPlannedStartTime());
                     route.setPlannedEndTime(newRoute.getPlannedEndTime());

@@ -41,7 +41,6 @@ public class WarehouseController {
                     warehouse.setAddress(newWarehouse.getAddress());
                     warehouse.setCapacityMaxPackages(newWarehouse.getCapacityMaxPackages());
                     warehouse.setRegion(newWarehouse.getRegion());
-                    warehouse.setPostalCode(newWarehouse.getPostalCode());
                     return repository.save(warehouse);
                 })
                 .orElseGet(() -> {
