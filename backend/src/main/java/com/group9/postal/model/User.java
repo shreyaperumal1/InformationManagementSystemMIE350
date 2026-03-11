@@ -34,8 +34,7 @@ public class  User {
     public enum Role {
         CUSTOMER,
         ADMIN,
-        DRIVER_PICKUP,
-        DRIVER_DELIVERY
+        DRIVER
     }
 
     public User(String name, String email, String passwordHash, Role role, String phone) {

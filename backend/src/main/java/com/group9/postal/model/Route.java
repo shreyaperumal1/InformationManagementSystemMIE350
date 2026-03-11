@@ -54,4 +54,5 @@ public class Route {
         this.plannedEndTime = plannedEndTime;
         this.routeStatus = routeStatus;
     }
+
 }

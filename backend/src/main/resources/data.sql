@@ -18,7 +18,17 @@ INSERT INTO warehouse (warehouseId, name, address, capacityMaxPackages, region) 
     (3, 'Scarborough Warehouse', '300 Scarborough Rd, Toronto, ON', 3000, 'Scarborough'),
     (4, 'Brampton Warehouse', '400 Brampton Ave, Brampton, ON', 3000, 'Brampton');
 -- Vehicles
-INSERT INTO vehicle (vehicleId, plate, type, capacityWeight, capacityVolume, assignedDriverId) VALUES (1,'ABCD 123','VAN',500.0,10.0,3);
+INSERT INTO vehicle (vehicleId, plate, type, capacityWeight, capacityVolume, assignedDriverId) VALUES
+    (1,'ABCD 123','VAN',500.0,10.0,3),
+    (2,'EFGH 456','TRUCK',2000.0,40.0,4),
+    (3,'IJKL 789','VAN',600.0,12.0,2),
+    (4,'MNOP 321','BIKE',50.0,1.5,5),
+    (5,'QRST 654','TRUCK',1800.0,35.0,1),
+    (6,'UVWX 987','VAN',550.0,11.0,6),
+    (7,'YZAB 111','TRUCK',2200.0,45.0,7),
+    (8,'CDEF 222','BIKE',40.0,1.2,8),
+    (9,'GHIJ 333','VAN',520.0,10.5,9),
+    (10,'KLMN 444','TRUCK',2500.0,50.0,10);
 -- Orders
 INSERT INTO orders (orderId, customerId, createdAt, pickupAddress, dropoffAddress, totalCost, orderStatus) VALUES
   (1,  1, CURRENT_TIMESTAMP, '10 Maple Ave, Toronto, ON','55 Oak St, Hamilton, ON',25.50, 'CONFIRMED');
