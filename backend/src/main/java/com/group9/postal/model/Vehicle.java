@@ -26,16 +26,11 @@ public class Vehicle {
     private float capacityWeight;
     private float capacityVolume;
 
-    @ManyToOne
-    @JoinColumn(name = "assignedDriverId")
-    private User assignedDriver;
-
-    public Vehicle(String plate, String type, float capacityWeight, float capacityVolume, User assignedDriver) {
+    public Vehicle(String plate, String type, float capacityWeight, float capacityVolume) {
         this.plate = plate;
         this.type = type;
         this.capacityWeight = capacityWeight;
         this.capacityVolume = capacityVolume;
-        this.assignedDriver = assignedDriver;
     }
 
 }

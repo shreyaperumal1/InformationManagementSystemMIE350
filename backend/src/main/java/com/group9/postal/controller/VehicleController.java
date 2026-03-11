@@ -41,7 +41,6 @@ public class VehicleController {
                     vehicle.setType(newVehicle.getType());
                     vehicle.setCapacityWeight(newVehicle.getCapacityWeight());
                     vehicle.setCapacityVolume(newVehicle.getCapacityVolume());
-                    vehicle.setAssignedDriver(newVehicle.getAssignedDriver());
                     return repository.save(vehicle);
                 })
                 .orElseGet(() -> {

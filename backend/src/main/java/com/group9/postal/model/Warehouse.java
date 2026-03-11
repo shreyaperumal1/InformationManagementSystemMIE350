@@ -22,13 +22,17 @@ public class Warehouse {
     @NotEmpty
     private String address;
 
+    @NotEmpty
+    private String postalCode;
+
     private int capacityMaxPackages;
 
     private String region;
 
-    public Warehouse(String name, String address, int capacityMaxPackages, String region){
+    public Warehouse(String name, String address, String postalCode, int capacityMaxPackages, String region){
         this.name = name;
         this.address = address;
+        this.postalCode = postalCode;
         this.capacityMaxPackages = capacityMaxPackages;
         this.region = region;
     }

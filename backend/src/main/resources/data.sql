@@ -2,33 +2,34 @@
 INSERT INTO users (userId, name, email, passwordHash, role, phone) VALUES
     (1, 'Alice Anderson', 'alice@gmail.com', 'password123', 'CUSTOMER', '123-456-0101'),
     (2, 'Bob Baxter', 'bob@gmail.com', 'password123', 'CUSTOMER', '123-456-0202'),
-    (3, 'Cameron Jones', 'cameron@postal.com', 'password123', 'DRIVER_PICKUP', '123-456-0303'),
-    (4, 'Danny Smith', 'danny@gmail.com', 'password123', 'DRIVER_DELIVERY', '123-456-0404'),
+    (3, 'Cameron Jones', 'cameron@postal.com', 'password123', 'DRIVER', '123-456-0303'),
+    (4, 'Danny Smith', 'danny@gmail.com', 'password123', 'DRIVE', '123-456-0404'),
     (5, 'Emily Patrick', 'emily@postal.com','password123', 'ADMIN', '123-456-0505'),
     (6, 'Franny Gaines', 'franny@gmail.com', 'password123', 'CUSTOMER', '123-456-0606'),
     (7, 'Grace Wu', 'grace@gmail.com', 'password123', 'CUSTOMER', '123-456-0707'),
-    (8, 'Harold Brown', 'harold@postal.com', 'password123', 'DRIVER_PICKUP', '123-456-0808'),
-    (9, 'Ilora Scott', 'ilora@postal.com', 'password123', 'DRIVER_DELIVERY', '123-456-0909'),
+    (8, 'Harold Brown', 'harold@postal.com', 'password123', 'DRIVER', '123-456-0808'),
+    (9, 'Ilora Scott', 'ilora@postal.com', 'password123', 'DRIVER', '123-456-0909'),
     (10,'Jimmy John', 'jimmy@gmail.com', 'password123', 'CUSTOMER', '123-456-1010');
 
 -- Warehouses
-INSERT INTO warehouse (warehouseId, name, address, capacityMaxPackages, region) VALUES
-    (1, 'Toronto Warehouse', '100 Depot Rd, Toronto, ON' , 5000, 'Toronto'),
-    (2, 'Mississauga Warehouse', '200 Gateway Blvd, Mississauga, ON', 2000, 'Mississauga'),
-    (3, 'Scarborough Warehouse', '300 Scarborough Rd, Toronto, ON', 3000, 'Scarborough'),
-    (4, 'Brampton Warehouse', '400 Brampton Ave, Brampton, ON', 3000, 'Brampton');
+INSERT INTO warehouse (warehouseId, name, address, postal_code, capacityMaxPackages, region) VALUES
+    (1, 'Toronto Warehouse', '178 High Park Ave, Toronto, ON' , 5000, 'Toronto'),
+    (2, 'Mississauga Warehouse', '4415 Mississauga Rd, Mississauga, ON', 2000, 'Mississauga'),
+    (3, 'Scarborough Warehouse', '900 Markham Rd, Scarborough, ON', 3000, 'Scarborough'),
+    (4, 'Brampton Warehouse', '25 Peel Centre Dr, Brampton, ON', 3000, 'Brampton'),
+    (5, 'Oakville Warehouse', '1 Oakville Drive');
 -- Vehicles
-INSERT INTO vehicle (vehicleId, plate, type, capacityWeight, capacityVolume, assignedDriverId) VALUES
-    (1,'ABCD 123','VAN',500.0,10.0,3),
-    (2,'EFGH 456','TRUCK',2000.0,40.0,4),
-    (3,'IJKL 789','VAN',600.0,12.0,2),
-    (4,'MNOP 321','BIKE',50.0,1.5,5),
-    (5,'QRST 654','TRUCK',1800.0,35.0,1),
-    (6,'UVWX 987','VAN',550.0,11.0,6),
-    (7,'YZAB 111','TRUCK',2200.0,45.0,7),
-    (8,'CDEF 222','BIKE',40.0,1.2,8),
-    (9,'GHIJ 333','VAN',520.0,10.5,9),
-    (10,'KLMN 444','TRUCK',2500.0,50.0,10);
+INSERT INTO vehicle (vehicleId, plate, type, capacityWeight, capacityVolume) VALUES
+    (1,'ABCD 123','VAN',500.0,10.0),
+    (2,'EFGH 456','TRUCK',2000.0,40.0),
+    (3,'IJKL 789','VAN',600.0,12.0),
+    (4,'MNOP 321','BIKE',50.0,1.5),
+    (5,'QRST 654','TRUCK',1800.0,35.0),
+    (6,'UVWX 987','VAN',550.0,11.0),
+    (7,'YZAB 111','TRUCK',2200.0,45.0),
+    (8,'CDEF 222','BIKE',40.0,1.2),
+    (9,'GHIJ 333','VAN',520.0,10.5),
+    (10,'KLMN 444','TRUCK',2500.0,50.0);
 -- Orders
 INSERT INTO orders (orderId, customerId, createdAt, pickupAddress, dropoffAddress, totalCost, orderStatus) VALUES
   (1,  1, CURRENT_TIMESTAMP, '10 Maple Ave, Toronto, ON','55 Oak St, Hamilton, ON',25.50, 'CONFIRMED');
