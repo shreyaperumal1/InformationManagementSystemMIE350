@@ -1,66 +1,53 @@
 package com.group9.postal.controller;
 
-import com.group9.postal.controller.exceptions.OrderNotFoundException;
-import com.group9.postal.model.Order;
-import com.group9.postal.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.group9.postal.dto.CreateOrderRequest;
+import com.group9.postal.dto.OrderResponse;
+import com.group9.postal.dto.UpdateOrderStatusRequest;
+import com.group9.postal.service.OrderService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/orders")
 public class OrderController {
-    @Autowired
-    private final OrderRepository repository;
 
-    public OrderController(OrderRepository repository) {
-        this.repository = repository;
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
-    @GetMapping("/orders")
-    List<Order> retrieveAllOrders() {
-        return repository.findAll();
+    @GetMapping
+    public List<OrderResponse> retrieveAllOrders() {
+        return orderService.getAllOrders();
     }
 
-    @GetMapping("/orders/{id}")
-    Order retrieveOrder(@PathVariable("id") Long orderId) {
-        return repository.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException(orderId));
+    @GetMapping("/{id}")
+    public OrderResponse retrieveOrder(@PathVariable("id") Long orderId) {
+        return orderService.getOrderById(orderId);
     }
 
-    @GetMapping("/orders/customer/{customerId}")
-    List<Order> retrieveOrdersByCustomer(@PathVariable("customerId") Long customerId) {
-        return repository.findByCustomerUserId(customerId);
+    @GetMapping("/status/{status}")
+    public List<OrderResponse> retrieveOrdersByStatus(@PathVariable("status") String status) {
+        return orderService.getOrdersByStatus(status);
     }
 
-    @GetMapping("/orders/status/{status}")
-    List<Order> retrieveOrdersByStatus(@PathVariable("status") String status) {
-        return repository.findByOrderStatus(status);
+    @PostMapping
+    public OrderResponse createOrder(@Valid @RequestBody CreateOrderRequest request) {
+        return orderService.createOrder(request);
     }
 
-    @PostMapping("/orders")
-    Order createOrder(@RequestBody Order newOrder) {
-        return repository.save(newOrder);
+    @PatchMapping("/{id}/status")
+    public OrderResponse updateOrderStatus(@PathVariable("id") Long orderId,
+                                           @Valid @RequestBody UpdateOrderStatusRequest request) {
+        return orderService.updateOrderStatus(orderId, request);
     }
 
-    @PutMapping("/orders/{id}")
-    Order updateOrder(@RequestBody Order newOrder, @PathVariable("id") Long orderId) {
-        return repository.findById(orderId)
-                .map(order -> {
-                    order.setPickupAddress(newOrder.getPickupAddress());
-                    order.setDropoffAddress(newOrder.getDropoffAddress());
-                    order.setTotalCost(newOrder.getTotalCost());
-                    order.setOrderStatus(newOrder.getOrderStatus());
-                    return repository.save(order);
-                })
-                .orElseGet(() -> {
-                    newOrder.setOrderId(orderId);
-                    return repository.save(newOrder);
-                });
-    }
-
-    @DeleteMapping("/orders/{id}")
-    void deleteOrder(@PathVariable("id") Long orderId) {
-        repository.deleteById(orderId);
+    @DeleteMapping("/{id}")
+    public void deleteOrder(@PathVariable("id") Long orderId) {
+        orderService.deleteOrder(orderId);
     }
 }

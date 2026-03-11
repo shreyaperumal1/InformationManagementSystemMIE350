@@ -3,9 +3,10 @@ package com.group9.postal.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -13,42 +14,48 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name="orders")
+@Table(name = "orders")
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "customerId")
-    private User customer;
-
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @NotEmpty
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "addressId")
+    @JoinColumn(name = "pickupAddressId", nullable = false)
     private Address pickupAddress;
 
-    @NotEmpty
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "addressId")
+    @JoinColumn(name = "dropoffAddressId", nullable = false)
     private Address dropoffAddress;
 
-    @Nullable
+    @NotBlank
+    private String contactName;
+
+    @NotBlank
+    private String contactEmail;
+
+    @NotBlank
+    private String contactPhone;
+
     private BigDecimal totalCost;
 
-    @NotEmpty
+    @NotBlank
     private String orderStatus;
 
-    public Order(User customer, Address pickupAddress, Address dropoffAddress,
+    public Order(String contactName, String contactEmail, String contactPhone,
+                 Address pickupAddress, Address dropoffAddress,
                  BigDecimal totalCost, String orderStatus) {
-        this.customer = customer;
+        this.contactName = contactName;
+        this.contactEmail = contactEmail;
+        this.contactPhone = contactPhone;
         this.pickupAddress = pickupAddress;
         this.dropoffAddress = dropoffAddress;
         this.totalCost = totalCost;
         this.orderStatus = orderStatus;
     }
-
-
 }
