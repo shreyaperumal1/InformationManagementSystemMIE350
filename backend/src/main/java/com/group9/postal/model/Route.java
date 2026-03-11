@@ -28,9 +28,6 @@ public class Route {
     @JoinColumn(name = "warehouseId")
     private Warehouse warehouse;
 
-    @NotEmpty
-    private String routeType;
-
     @Nullable
     private LocalDateTime plannedStartTime;
 
@@ -41,18 +38,17 @@ public class Route {
     private String routeStatus;
 
     @OneToMany(mappedBy = "route")
-    @Nullable
     private List<RouteStop> stops = new ArrayList<>();
 
     public Route(User driver, Warehouse warehouse, String routeType,
                  LocalDateTime plannedStartTime, LocalDateTime plannedEndTime,
-                 String routeStatus) {
+                 String routeStatus, List<RouteStop> stops) {
         this.driver = driver;
         this.warehouse = warehouse;
-        this.routeType = routeType;
         this.plannedStartTime = plannedStartTime;
         this.plannedEndTime = plannedEndTime;
         this.routeStatus = routeStatus;
+        this.stops = stops;
     }
 
 }

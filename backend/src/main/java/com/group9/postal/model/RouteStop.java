@@ -29,8 +29,14 @@ public class RouteStop {
     @NotEmpty
     private String stopAddress;
 
+    @Enumerated(EnumType.STRING)
+    private enum StopType {
+        PICKUP,
+        DELIVERY
+    };
+
     @NotEmpty
-    private String stopType;
+    private StopType stopType;
 
     @Nullable
     private LocalDateTime plannedTime;
@@ -43,7 +49,7 @@ public class RouteStop {
     private List<StopShipment> stopShipments = new ArrayList<>();
 
     public RouteStop(Route route, int stopSequence, String stopAddress,
-                     String stopType, LocalDateTime plannedTime) {
+                     StopType stopType, LocalDateTime plannedTime) {
         this.route = route;
         this.stopSequence = stopSequence;
         this.stopAddress = stopAddress;

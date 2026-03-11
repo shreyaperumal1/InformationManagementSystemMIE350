@@ -26,10 +26,10 @@ public class Order {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @NotEmpty
-    private String pickupAddress;
+    private int pickupAddress;
 
     @NotEmpty
-    private String dropoffAddress;
+    private int dropoffAddress;
 
     @Nullable
     private BigDecimal totalCost;
@@ -37,7 +37,7 @@ public class Order {
     @NotEmpty
     private String orderStatus;
 
-    public Order(User customer, String pickupAddress, String dropoffAddress,
+    public Order(User customer, int pickupAddress, int dropoffAddress,
                  BigDecimal totalCost, String orderStatus) {
         this.customer = customer;
         this.pickupAddress = pickupAddress;
