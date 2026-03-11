@@ -32,13 +32,11 @@ public class Address {
 
     private String aptNum;
 
-    @NotEmpty
     private int streetNum;
 
     @NotEmpty
     private String streetName;
 
-    @NotEmpty
     private enum StreetType{
         DRIVE,
         AVENUE,
