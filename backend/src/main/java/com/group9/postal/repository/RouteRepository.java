@@ -10,5 +10,4 @@ import java.util.List;
 public interface RouteRepository extends JpaRepository<Route, Long>{
     List<Route> findByDriverUserId(Long driverId);
     List<Route> findByRouteStatus(String status);
-    List<Route> findByRouteType(String type);
 }

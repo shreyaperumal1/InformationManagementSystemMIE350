@@ -7,6 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+import com.group9.postal.model.User;
+import com.group9.postal.model.Order;
+import com.group9.postal.model.Warehouse;
+
+import com.group9.postal.repository.UserRepository;
+import com.group9.postal.repository.UserRepository;
+import com.group9.postal.repository.UserRepository;
+
 @CrossOrigin
 @RestController
 public class RouteController {
@@ -59,6 +67,15 @@ public class RouteController {
                     newRoute.setRouteId(routeId);
                     return repository.save(newRoute);
                 });
+    }
+
+    //Set route
+    @PostMapping("/route/manual")
+    Route setManualRoute(
+            @RequestParam Long driverId,
+            @RequestParam Long warehouseId,
+            @RequestParam List<Long> orderIds ) {
+
     }
 
     @DeleteMapping("/route/{id}")
