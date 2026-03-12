@@ -1,6 +1,7 @@
 package com.group9.postal.controller;
 
 import com.group9.postal.controller.exceptions.RouteNotFoundException;
+import com.group9.postal.model.Address;
 import com.group9.postal.model.Route;
 import com.group9.postal.repository.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import com.group9.postal.repository.UserRepository;
 import com.group9.postal.repository.WarehouseRepository;
 import com.group9.postal.repository.OrderRepository;
 
-
 @CrossOrigin
 @RestController
 public class RouteController {
@@ -33,7 +33,6 @@ public class RouteController {
 
     @Autowired
     private OrderRepository orderRepository;
-
 
     public RouteController(RouteRepository repository) {
         this.repository = repository;
@@ -83,21 +82,22 @@ public class RouteController {
                 });
     }
 
-    //Set route
     @PostMapping("/route/manual")
     Route setManualRoute(
             @RequestParam Long driverEmail,
             @RequestParam Long warehouseId,
-            @RequestParam List<Long> orderIds ) {
-        User driver = userRepository.findById(driverEmail).orElseThrow(() -> new RuntimeException("Driver not found"));
-        Warehouse warehouse = warehouseRepository.findById(warehouseId).orElseThrow(() -> new RuntimeException("Warehouse not found"));
+            @RequestParam List<Long> orderIds) {
+
+        User driver = userRepository.findById(driverEmail)
+                .orElseThrow(() -> new RuntimeException("Driver not found"));
+        Warehouse warehouse = warehouseRepository.findById(warehouseId)
+                .orElseThrow(() -> new RuntimeException("Warehouse not found"));
         List<Order> orders = orderRepository.findAllById(orderIds);
 
         if (orders.isEmpty()) {
             throw new RuntimeException("No valid orders found");
         }
 
-        // Check all order IDs were valid
         if (orders.size() != orderIds.size()) {
             throw new RuntimeException("One or more orderIds are invalid");
         }
@@ -111,19 +111,32 @@ public class RouteController {
         int sequence = 1;
 
         for (Order order : orders) {
+            Address dropoff = order.getDropoffAddress();
+
+            String stopAddress =
+                    (dropoff.getAptNum() != null && !dropoff.getAptNum().isBlank()
+                            ? dropoff.getAptNum() + "-" : "") +
+                    dropoff.getStreetNum() + " " +
+                    dropoff.getStreetName() + " " +
+                    dropoff.getStreetType() + ", " +
+                    dropoff.getCity() + ", " +
+                    dropoff.getProvinceState() + ", " +
+                    dropoff.getCountry() + ", " +
+                    dropoff.getPostalZip();
+
             RouteStop stop = new RouteStop(
                     route,
                     sequence,
-                    order.getDropoffAddress(),
+                    stopAddress,
                     null,
                     null
             );
             routeStops.add(stop);
             sequence++;
         }
+
         route.setStops(routeStops);
         return repository.save(route);
-
     }
 
     @DeleteMapping("/route/{id}")

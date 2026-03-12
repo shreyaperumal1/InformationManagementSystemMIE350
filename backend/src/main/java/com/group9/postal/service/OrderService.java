@@ -4,7 +4,9 @@ import com.group9.postal.controller.exceptions.OrderNotFoundException;
 import com.group9.postal.dto.CreateOrderRequest;
 import com.group9.postal.dto.OrderResponse;
 import com.group9.postal.dto.UpdateOrderStatusRequest;
+import com.group9.postal.model.Address;
 import com.group9.postal.model.Order;
+import com.group9.postal.repository.AddressRepository;
 import com.group9.postal.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +17,28 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final AddressRepository addressRepository;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, AddressRepository addressRepository) {
         this.orderRepository = orderRepository;
+        this.addressRepository = addressRepository;
     }
 
     public OrderResponse createOrder(CreateOrderRequest request) {
         validateCreateOrderRequest(request);
 
+        Address pickupAddress = addressRepository.findById(request.getPickupAddressId())
+                .orElseThrow(() -> new RuntimeException("Pickup address not found"));
+
+        Address dropoffAddress = addressRepository.findById(request.getDropoffAddressId())
+                .orElseThrow(() -> new RuntimeException("Dropoff address not found"));
+
         Order order = new Order();
         order.setContactName(request.getContactName().trim());
         order.setContactEmail(request.getContactEmail().trim());
         order.setContactPhone(request.getContactPhone().trim());
-        order.setPickupAddress(request.getPickupAddress().trim());
-        order.setDropoffAddress(request.getDropoffAddress().trim());
+        order.setPickupAddress(pickupAddress);
+        order.setDropoffAddress(dropoffAddress);
         order.setTotalCost(request.getTotalCost());
         order.setOrderStatus("Pending");
 
@@ -84,7 +94,7 @@ public class OrderService {
         }
         orderRepository.deleteById(orderId);
     }
-    
+
     private void validateCreateOrderRequest(CreateOrderRequest request) {
         if (request.getContactName() == null || request.getContactName().trim().isEmpty()) {
             throw new RuntimeException("Contact name is required");
@@ -98,12 +108,12 @@ public class OrderService {
             throw new RuntimeException("Contact phone is required");
         }
 
-        if (request.getPickupAddress() == null || request.getPickupAddress().trim().isEmpty()) {
-            throw new RuntimeException("Pickup address is required");
+        if (request.getPickupAddressId() == null) {
+            throw new RuntimeException("Pickup address ID is required");
         }
 
-        if (request.getDropoffAddress() == null || request.getDropoffAddress().trim().isEmpty()) {
-            throw new RuntimeException("Dropoff address is required");
+        if (request.getDropoffAddressId() == null) {
+            throw new RuntimeException("Dropoff address ID is required");
         }
     }
 

@@ -2,6 +2,7 @@ package com.group9.postal.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
@@ -17,11 +18,11 @@ public class CreateOrderRequest {
     @NotBlank
     private String contactPhone;
 
-    @NotBlank
-    private String pickupAddress;
+    @NotNull
+    private Long pickupAddressId;
 
-    @NotBlank
-    private String dropoffAddress;
+    @NotNull
+    private Long dropoffAddressId;
 
     private BigDecimal totalCost;
 
@@ -49,20 +50,20 @@ public class CreateOrderRequest {
         this.contactPhone = contactPhone;
     }
 
-    public String getPickupAddress() {
-        return pickupAddress;
+    public Long getPickupAddressId() {
+        return pickupAddressId;
     }
 
-    public void setPickupAddress(String pickupAddress) {
-        this.pickupAddress = pickupAddress;
+    public void setPickupAddressId(Long pickupAddressId) {
+        this.pickupAddressId = pickupAddressId;
     }
 
-    public String getDropoffAddress() {
-        return dropoffAddress;
+    public Long getDropoffAddressId() {
+        return dropoffAddressId;
     }
 
-    public void setDropoffAddress(String dropoffAddress) {
-        this.dropoffAddress = dropoffAddress;
+    public void setDropoffAddressId(Long dropoffAddressId) {
+        this.dropoffAddressId = dropoffAddressId;
     }
 
     public BigDecimal getTotalCost() {

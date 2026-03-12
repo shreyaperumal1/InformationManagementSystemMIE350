@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,11 +23,15 @@ public class Order {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @NotBlank
-    private String pickupAddress;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "pickup_address_id", nullable = false)
+    private Address pickupAddress;
 
-    @NotBlank
-    private String dropoffAddress;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "dropoff_address_id", nullable = false)
+    private Address dropoffAddress;
 
     @NotBlank
     private String contactName;
@@ -43,7 +48,7 @@ public class Order {
     private String orderStatus;
 
     public Order(String contactName, String contactEmail, String contactPhone,
-                 String pickupAddress, String dropoffAddress,
+                 Address pickupAddress, Address dropoffAddress,
                  BigDecimal totalCost, String orderStatus) {
         this.contactName = contactName;
         this.contactEmail = contactEmail;

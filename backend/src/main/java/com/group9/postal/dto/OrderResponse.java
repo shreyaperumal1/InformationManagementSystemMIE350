@@ -1,5 +1,7 @@
 package com.group9.postal.dto;
 
+import com.group9.postal.model.Address;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -9,8 +11,8 @@ public class OrderResponse {
     private String contactName;
     private String contactEmail;
     private String contactPhone;
-    private String pickupAddress;
-    private String dropoffAddress;
+    private Address pickupAddress;
+    private Address dropoffAddress;
     private BigDecimal totalCost;
     private String orderStatus;
     private LocalDateTime createdAt;
@@ -47,19 +49,19 @@ public class OrderResponse {
         this.contactPhone = contactPhone;
     }
 
-    public String getPickupAddress() {
+    public Address getPickupAddress() {
         return pickupAddress;
     }
 
-    public void setPickupAddress(String pickupAddress) {
+    public void setPickupAddress(Address pickupAddress) {
         this.pickupAddress = pickupAddress;
     }
 
-    public String getDropoffAddress() {
+    public Address getDropoffAddress() {
         return dropoffAddress;
     }
 
-    public void setDropoffAddress(String dropoffAddress) {
+    public void setDropoffAddress(Address dropoffAddress) {
         this.dropoffAddress = dropoffAddress;
     }
 
