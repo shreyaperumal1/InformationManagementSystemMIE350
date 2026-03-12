@@ -34,9 +34,9 @@ public class AddressController {
         return addressRepository.findByCity(city);
     }
 
-    @GetMapping("/addresses/postal/{postalOrZip}")
-    List<Address> retrieveAddressesByPostal(@PathVariable("postalOrZip") String postalOrZip) {
-        return addressRepository.findByPostalOrZip(postalOrZip);
+    @GetMapping("/addresses/postal/{postalZip}")
+    List<Address> retrieveAddressesByPostal(@PathVariable("postalZip") String postalZip) {
+        return addressRepository.findByPostalZip(postalZip);
     }
 
     @PostMapping("/addresses")
@@ -54,9 +54,9 @@ public class AddressController {
                     address.setStreetName(newAddress.getStreetName());
                     address.setStreetType(newAddress.getStreetType());
                     address.setCity(newAddress.getCity());
-                    address.setProvinceOrState(newAddress.getProvinceOrState());
+                    address.setProvinceState(newAddress.getProvinceState());
                     address.setCountry(newAddress.getCountry());
-                    address.setPostalOrZip(newAddress.getPostalOrZip());
+                    address.setPostalZip(newAddress.getPostalZip());
                     return addressRepository.save(address);
                 })
                 .orElseGet(() -> {

@@ -49,7 +49,8 @@ public class Address {
         WALK,
         WAY,
         ROAD,
-        LINE
+        LINE,
+        HILL
     };
 
     @Enumerated(EnumType.STRING)
@@ -59,13 +60,13 @@ public class Address {
     private String city;
 
     @NotEmpty
-    private String provinceOrState;
+    private String provinceState;
 
     @NotEmpty
     private String country;
 
     @NotEmpty
-    private String postalOrZip;
+    private String postalZip;
 
     public Address(Long addressId,
                    BuildingType buildingType,
@@ -74,9 +75,9 @@ public class Address {
                    String streetName,
                    StreetType streetType,
                    String city,
-                   String provinceOrState,
+                   String provinceState,
                    String country,
-                   String postalOrZip) {
+                   String postalZip) {
 
         this.addressId = addressId;
         this.buildingType = buildingType;
@@ -85,8 +86,8 @@ public class Address {
         this.streetName = streetName;
         this.streetType = streetType;
         this.city = city;
-        this.provinceOrState = provinceOrState;
+        this.provinceState = provinceState;
         this.country = country;
-        this.postalOrZip = postalOrZip;
+        this.postalZip = postalZip;
     }
 }

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface AddressRepository extends JpaRepository<Address, Long> {
     List<Address> findByCity(String city);
-    List<Address> findByPostalOrZip(String postalOrZip);
-    List<Address> findByProvinceOrState(String provinceOrState);
+    List<Address> findByPostalZip(String postalZip);
+    List<Address> findByProvinceState(String provinceState);
 }

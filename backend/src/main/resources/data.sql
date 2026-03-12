@@ -3,7 +3,7 @@ INSERT INTO users (userId, name, email, passwordHash, role, phone) VALUES
     (1, 'Alice Anderson', 'alice@gmail.com', 'password123', 'CUSTOMER', '123-456-0101'),
     (2, 'Bob Baxter', 'bob@gmail.com', 'password123', 'CUSTOMER', '123-456-0202'),
     (3, 'Cameron Jones', 'cameron@postal.com', 'password123', 'DRIVER', '123-456-0303'),
-    (4, 'Danny Smith', 'danny@gmail.com', 'password123', 'DRIVE', '123-456-0404'),
+    (4, 'Danny Smith', 'danny@gmail.com', 'password123', 'DRIVER', '123-456-0404'),
     (5, 'Emily Patrick', 'emily@postal.com','password123', 'ADMIN', '123-456-0505'),
     (6, 'Franny Gaines', 'franny@gmail.com', 'password123', 'CUSTOMER', '123-456-0606'),
     (7, 'Grace Wu', 'grace@gmail.com', 'password123', 'CUSTOMER', '123-456-0707'),
@@ -11,7 +11,7 @@ INSERT INTO users (userId, name, email, passwordHash, role, phone) VALUES
     (9, 'Ilora Scott', 'ilora@postal.com', 'password123', 'DRIVER', '123-456-0909'),
     (10,'Jimmy John', 'jimmy@gmail.com', 'password123', 'CUSTOMER', '123-456-1010');
 -- Address
-INSERT INTO address (addressId, buildingType, aptNum, streetNum, streetName, streetType, city, provinceOrState, country, postalOrZip) VALUES
+INSERT INTO address (addressId, buildingType, aptNum, streetNum, streetName, streetType, city, provinceState, country, postalZip) VALUES
     (1, 'WAREHOUSE', null, 178, 'High Park', 'AVENUE', 'Toronto', 'Ontario', 'Canada', 'M6P2S4'),
     (2, 'WAREHOUSE', null, 4415, 'Mississauga', 'ROAD', 'Mississauga', 'Ontario', 'Canada', 'L5M3G8'),
     (3, 'WAREHOUSE', null, 900, 'Markham', 'ROAD', 'Scarborough', 'Ontario', 'Canada', 'M1H2Y2'),
@@ -23,7 +23,7 @@ INSERT INTO address (addressId, buildingType, aptNum, streetNum, streetName, str
     (9, 'WAREHOUSE', null, 4852, 'Clifton', 'HILL', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3N4'),
     (10, 'WAREHOUSE', null, 1235, 'Richmond', 'STREET', 'London', 'Ontario', 'Canada', 'N6A0C1'),
     (11, 'APARTMENT', 1902, 5785, 'Victoria', 'AVENUE', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3L6'),
-    (12, 'HOTEL', 22A, 99, 'Wellesley', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M7A1W3'),
+    (12, 'HOTEL', '22A', 99, 'Wellesley', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M7A1W3'),
     (13, 'HOUSE', null, 140, 'King', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5H3Y2'),
     (14, 'HOUSE', null, 33, 'Yonge', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5E1G4'),
     (15, 'HOUSE', null, 6360, 'Hawthorne', 'DRIVE', 'Windsor', 'Ontario', 'Canada', 'N8T1J9'),
@@ -60,17 +60,17 @@ INSERT INTO vehicle (vehicleId, plate, type, capacityWeight, capacityVolume) VAL
     (9,'GHIJ 333','VAN',520.0,10.5),
     (10,'KLMN 444','TRUCK',2500.0,50.0);
 -- Orders (1,2,6,7,10 Ids are customers)
-INSERT INTO orders (orderId, customerId, createdAt, pickupAddressId, dropoffAddressId, totalCost, orderStatus) VALUES
-   (1,  1, CURRENT_TIMESTAMP, 23, 20, 25.50, 'CONFIRMED'),
-   (2,  2, CURRENT_TIMESTAMP, 13, 17, 18.75, 'DELIVERED'),
-   (3,  6, CURRENT_TIMESTAMP, 14, 15, 42.00, 'IN_TRANSIT'),
-   (4,  7, CURRENT_TIMESTAMP, 16, 18, 21.30, 'PENDING'),
-   (5, 10, CURRENT_TIMESTAMP, 19, 21, 33.90, 'CONFIRMED'),
-   (6,  1, CURRENT_TIMESTAMP, 22, 11, 27.45, 'IN_TRANSIT'),
-   (7,  2, CURRENT_TIMESTAMP, 20, 23, 16.80, 'DELIVERED'),
-   (8,  6, CURRENT_TIMESTAMP, 17, 16, 24.60, 'CONFIRMED'),
-   (9,  7, CURRENT_TIMESTAMP, 15, 19, 38.25, 'PENDING'),
-   (10, 10, CURRENT_TIMESTAMP, 18, 13, 19.99, 'CONFIRMED');
+INSERT INTO orders (orderId, createdAt, pickupAddress, dropoffAddress, contactName, contactEmail, contactPhone, totalCost, orderStatus) VALUES
+(1,  CURRENT_TIMESTAMP, '23 Bay Street Toronto',        '20 Queen Street Kitchener',    'Alice Johnson',  'alice@email.com',  '416-555-0101', 25.50, 'CONFIRMED'),
+(2,  CURRENT_TIMESTAMP, '13 King Street Toronto',        '17 King Street Hamilton',      'Bob Smith',      'bob@email.com',    '416-555-0102', 18.75, 'DELIVERED'),
+(3,  CURRENT_TIMESTAMP, '14 Yonge Street Toronto',       '15 Hawthorne Drive Windsor',   'Carol Lee',      'carol@email.com',  '416-555-0103', 42.00, 'IN_TRANSIT'),
+(4,  CURRENT_TIMESTAMP, '16 Ouellette Avenue Windsor',   '18 University Avenue Toronto', 'David Park',     'david@email.com',  '416-555-0104', 21.30, 'PENDING'),
+(5,  CURRENT_TIMESTAMP, '19 Dundas Street Belleville',   '21 Stone Road Guelph',         'Eve Martinez',   'eve@email.com',    '416-555-0105', 33.90, 'CONFIRMED'),
+(6,  CURRENT_TIMESTAMP, '22 Dundas Street Toronto',      '11 Victoria Avenue Niagara',   'Alice Johnson',  'alice@email.com',  '416-555-0101', 27.45, 'IN_TRANSIT'),
+(7,  CURRENT_TIMESTAMP, '20 Queen Street Kitchener',     '23 Bay Street Toronto',        'Bob Smith',      'bob@email.com',    '416-555-0102', 16.80, 'DELIVERED'),
+(8,  CURRENT_TIMESTAMP, '17 King Street Hamilton',       '16 Ouellette Avenue Windsor',  'Carol Lee',      'carol@email.com',  '416-555-0103', 24.60, 'CONFIRMED'),
+(9,  CURRENT_TIMESTAMP, '15 Hawthorne Drive Windsor',    '19 Dundas Street Belleville',  'David Park',     'david@email.com',  '416-555-0104', 38.25, 'PENDING'),
+(10, CURRENT_TIMESTAMP, '18 University Avenue Toronto',  '13 King Street Toronto',       'Eve Martinez',   'eve@email.com',    '416-555-0105', 19.99, 'CONFIRMED');
 --Shipments
 INSERT INTO shipment (shipmentId, orderId, trackingNumber, type, weight, volume, fragileFlag, currentStatus, currentWarehouseId) VALUES
     (1,  1,  'TRK-000001', 'PARCEL', 2.5, 0.50, false, 'IN_TRANSIT', 1),
@@ -84,8 +84,10 @@ INSERT INTO shipment (shipmentId, orderId, trackingNumber, type, weight, volume,
     (9,  9,  'TRK-000009', 'PARCEL', 5.0, 1.10, false, 'PENDING', 9),
     (10, 10, 'TRK-000010', 'PARCEL', 2.9, 0.55, false, 'IN_TRANSIT', 10);
 --Routes
-INSERT INTO route (routeId, driverid, startwarehouseId, stops, plannedStartTime, plannedEndTime, routeStatus) VALUES
-    (1, 3, 1, '[1,2,3,4,5,6]',3],2,3,4,5,6), DATEADD('HOUR', -6, CURRENT_TIMESTAMP), DATEADD('HOUR',  2, CURRENT_TIMESTAMP), 'IN_PROGRESS');
+INSERT INTO route (routeId, driverId, warehouseId, plannedStartTime, plannedEndTime, routeStatus) VALUES
+(1, 3, 1, DATEADD('HOUR', -6, CURRENT_TIMESTAMP), DATEADD('HOUR', 2, CURRENT_TIMESTAMP), 'IN_PROGRESS'),
+(2, 4, 2, DATEADD('HOUR', -4, CURRENT_TIMESTAMP), DATEADD('HOUR', 4, CURRENT_TIMESTAMP), 'SCHEDULED'),
+(3, 5, 3, DATEADD('HOUR', -2, CURRENT_TIMESTAMP), DATEADD('HOUR', 6, CURRENT_TIMESTAMP), 'SCHEDULED');
 --Route Stops
 INSERT INTO route_stop (stopId, routeId, stopSequence, stopAddress, stopType, plannedTime, completedTime) VALUES
   (1, 1, 1, 15, 'PICKUP',  DATEADD('HOUR', -4, CURRENT_TIMESTAMP), DATEADD('HOUR', -3, CURRENT_TIMESTAMP)),
