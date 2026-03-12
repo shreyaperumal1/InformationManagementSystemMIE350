@@ -4,8 +4,12 @@ import com.group9.postal.controller.exceptions.UserNotFoundException;
 import com.group9.postal.model.User;
 import com.group9.postal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
+import com.group9.postal.dto.LoginRequest;
+import com.group9.postal.dto.LoginResponse;
 
 @CrossOrigin
 @RestController
@@ -53,6 +57,28 @@ public class UserController {
                     newUser.setUserId(userId);
                     return repository.save(newUser);
                 });
+    }
+
+    //Login Method
+    @PostMapping("/auth/login")
+    public ResponseEntity<LoginResponse> login (@RequestBody LoginRequest request) {
+        Optional<User> userOpt = repository.findByEmail(request.getEmail());
+
+        if (userOpt.isEmpty() || !userOpt.get().getPasswordHash().equals(request.getPassword())) {
+            LoginResponse response = new LoginResponse();
+            response.setMessage("Invalide email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+
+        User user = userOpt.get();
+        LoginResponse response = new LoginResponse();
+        response.setUserId(user.getUserId());
+        response.setName(user.getName());
+        response.setEmail(user.getEmail());
+        response.setRole(String.valueOf(user.getRole()));
+        response.setMessage("Login successful");
+
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/users/{id}")
