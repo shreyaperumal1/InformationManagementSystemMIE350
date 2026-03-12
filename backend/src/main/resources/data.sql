@@ -61,28 +61,28 @@ INSERT INTO vehicle (vehicleId, plate, type, capacityWeight, capacityVolume) VAL
     (10,'KLMN 444','TRUCK',2500.0,50.0);
 -- Orders (1,2,6,7,10 Ids are customers)
 INSERT INTO orders (orderId, createdAt, pickupAddress, dropoffAddress, contactName, contactEmail, contactPhone, totalCost, orderStatus) VALUES
-(1,  CURRENT_TIMESTAMP, '23 Bay Street Toronto',        '20 Queen Street Kitchener',    'Alice Johnson',  'alice@email.com',  '416-555-0101', 25.50, 'CONFIRMED'),
-(2,  CURRENT_TIMESTAMP, '13 King Street Toronto',        '17 King Street Hamilton',      'Bob Smith',      'bob@email.com',    '416-555-0102', 18.75, 'DELIVERED'),
-(3,  CURRENT_TIMESTAMP, '14 Yonge Street Toronto',       '15 Hawthorne Drive Windsor',   'Carol Lee',      'carol@email.com',  '416-555-0103', 42.00, 'IN_TRANSIT'),
-(4,  CURRENT_TIMESTAMP, '16 Ouellette Avenue Windsor',   '18 University Avenue Toronto', 'David Park',     'david@email.com',  '416-555-0104', 21.30, 'PENDING'),
-(5,  CURRENT_TIMESTAMP, '19 Dundas Street Belleville',   '21 Stone Road Guelph',         'Eve Martinez',   'eve@email.com',    '416-555-0105', 33.90, 'CONFIRMED'),
-(6,  CURRENT_TIMESTAMP, '22 Dundas Street Toronto',      '11 Victoria Avenue Niagara',   'Alice Johnson',  'alice@email.com',  '416-555-0101', 27.45, 'IN_TRANSIT'),
-(7,  CURRENT_TIMESTAMP, '20 Queen Street Kitchener',     '23 Bay Street Toronto',        'Bob Smith',      'bob@email.com',    '416-555-0102', 16.80, 'DELIVERED'),
-(8,  CURRENT_TIMESTAMP, '17 King Street Hamilton',       '16 Ouellette Avenue Windsor',  'Carol Lee',      'carol@email.com',  '416-555-0103', 24.60, 'CONFIRMED'),
-(9,  CURRENT_TIMESTAMP, '15 Hawthorne Drive Windsor',    '19 Dundas Street Belleville',  'David Park',     'david@email.com',  '416-555-0104', 38.25, 'PENDING'),
-(10, CURRENT_TIMESTAMP, '18 University Avenue Toronto',  '13 King Street Toronto',       'Eve Martinez',   'eve@email.com',    '416-555-0105', 19.99, 'CONFIRMED');
+(1,  CURRENT_TIMESTAMP, '23 Bay Street Toronto',        '20 Queen Street Kitchener',    'Alice Johnson',  'alice@email.com',  '416-555-0101', 25.50, 'Verified'),
+(2,  CURRENT_TIMESTAMP, '13 King Street Toronto',        '17 King Street Hamilton',      'Bob Smith',      'bob@email.com',    '416-555-0102', 18.75, 'Drop Off'),
+(3,  CURRENT_TIMESTAMP, '14 Yonge Street Toronto',       '15 Hawthorne Drive Windsor',   'Carol Lee',      'carol@email.com',  '416-555-0103', 42.00, 'En Route'),
+(4,  CURRENT_TIMESTAMP, '16 Ouellette Avenue Windsor',   '18 University Avenue Toronto', 'David Park',     'david@email.com',  '416-555-0104', 21.30, 'Pending'),
+(5,  CURRENT_TIMESTAMP, '19 Dundas Street Belleville',   '21 Stone Road Guelph',         'Eve Martinez',   'eve@email.com',    '416-555-0105', 33.90, 'Verified'),
+(6,  CURRENT_TIMESTAMP, '22 Dundas Street Toronto',      '11 Victoria Avenue Niagara',   'Alice Johnson',  'alice@email.com',  '416-555-0101', 27.45, 'En Route'),
+(7,  CURRENT_TIMESTAMP, '20 Queen Street Kitchener',     '23 Bay Street Toronto',        'Bob Smith',      'bob@email.com',    '416-555-0102', 16.80, 'Drop Off'),
+(8,  CURRENT_TIMESTAMP, '17 King Street Hamilton',       '16 Ouellette Avenue Windsor',  'Carol Lee',      'carol@email.com',  '416-555-0103', 24.60, 'Verified'),
+(9,  CURRENT_TIMESTAMP, '15 Hawthorne Drive Windsor',    '19 Dundas Street Belleville',  'David Park',     'david@email.com',  '416-555-0104', 38.25, 'Pending'),
+(10, CURRENT_TIMESTAMP, '18 University Avenue Toronto',  '13 King Street Toronto',       'Eve Martinez',   'eve@email.com',    '416-555-0105', 19.99, 'Verified');
 --Shipments
 INSERT INTO shipment (shipmentId, orderId, trackingNumber, type, weight, volume, fragileFlag, currentStatus, currentWarehouseId) VALUES
-    (1,  1,  'TRK-000001', 'PARCEL', 2.5, 0.50, false, 'IN_TRANSIT', 1),
-    (2,  2,  'TRK-000002', 'PARCEL', 1.8, 0.30, false, 'DELIVERED', 2),
-    (3,  3,  'TRK-000003', 'PARCEL', 4.2, 0.90, true,  'IN_TRANSIT', 3),
-    (4,  4,  'TRK-000004', 'PARCEL', 3.1, 0.60, false, 'PENDING', 4),
-    (5,  5,  'TRK-000005', 'PARCEL', 6.4, 1.20, true,  'CONFIRMED', 5),
-    (6,  6,  'TRK-000006', 'PARCEL', 2.0, 0.40, false, 'IN_TRANSIT', 6),
-    (7,  7,  'TRK-000007', 'PARCEL', 1.5, 0.25, false, 'DELIVERED', 7),
-    (8,  8,  'TRK-000008', 'PARCEL', 3.7, 0.70, true,  'CONFIRMED', 8),
-    (9,  9,  'TRK-000009', 'PARCEL', 5.0, 1.10, false, 'PENDING', 9),
-    (10, 10, 'TRK-000010', 'PARCEL', 2.9, 0.55, false, 'IN_TRANSIT', 10);
+    (1,  1,  'TRK-000001', 'PARCEL', 2.5, 0.50, false, 'En Route', 1),
+    (2,  2,  'TRK-000002', 'PARCEL', 1.8, 0.30, false, 'Drop Off', 2),
+    (3,  3,  'TRK-000003', 'PARCEL', 4.2, 0.90, true,  'En Route', 3),
+    (4,  4,  'TRK-000004', 'PARCEL', 3.1, 0.60, false, 'Pending', 4),
+    (5,  5,  'TRK-000005', 'PARCEL', 6.4, 1.20, true,  'Verified', 5),
+    (6,  6,  'TRK-000006', 'PARCEL', 2.0, 0.40, false, 'En Route', 6),
+    (7,  7,  'TRK-000007', 'PARCEL', 1.5, 0.25, false, 'Drop Off', 7),
+    (8,  8,  'TRK-000008', 'PARCEL', 3.7, 0.70, true,  'Verified', 8),
+    (9,  9,  'TRK-000009', 'PARCEL', 5.0, 1.10, false, 'Pending', 9),
+    (10, 10, 'TRK-000010', 'PARCEL', 2.9, 0.55, false, 'En Route', 10);
 --Routes
 INSERT INTO route (routeId, driverId, warehouseId, plannedStartTime, plannedEndTime, routeStatus) VALUES
 (1, 3, 1, DATEADD('HOUR', -6, CURRENT_TIMESTAMP), DATEADD('HOUR', 2, CURRENT_TIMESTAMP), 'IN_PROGRESS'),
@@ -101,24 +101,24 @@ INSERT INTO stop_shipment (stopId, shipmentId, action) VALUES
    (1,1,'pickup');
 --Tracking Events
 INSERT INTO tracking_event (eventId, shipmentId, timestamp, status, locationText, note) VALUES
-    (2, 1, DATEADD('HOUR', -24, CURRENT_TIMESTAMP), 'IN_TRANSIT', 'Toronto Warehouse', NULL),
+    (2, 1, DATEADD('HOUR', -24, CURRENT_TIMESTAMP), 'En route', 'Toronto Warehouse', NULL),
     (3, 1, DATEADD('HOUR', -2, CURRENT_TIMESTAMP), 'OUT_FOR_DELIVERY', 'Kitchener', NULL),
-    (4, 2, DATEADD('DAY', -3, CURRENT_TIMESTAMP), 'ACCEPTED', 'Mississauga Warehouse', NULL),
-    (5, 2, DATEADD('DAY', -2, CURRENT_TIMESTAMP), 'IN_TRANSIT', 'Mississauga Warehouse', NULL),
-    (6, 2, DATEADD('DAY', -1, CURRENT_TIMESTAMP), 'DELIVERED', 'Hamilton', 'Package delivered to recipient'),
-    (7, 3, DATEADD('HOUR', -12, CURRENT_TIMESTAMP), 'ACCEPTED', 'Scarborough Warehouse', NULL),
-    (8, 3, DATEADD('HOUR', -6, CURRENT_TIMESTAMP), 'IN_TRANSIT', 'Toronto Warehouse', NULL),
-    (9, 4, DATEADD('HOUR', -2, CURRENT_TIMESTAMP), 'ACCEPTED', 'Brampton Warehouse', 'Awaiting pickup'),
-    (10, 5, DATEADD('HOUR', -5, CURRENT_TIMESTAMP), 'ACCEPTED', 'Oakville Warehouse', NULL),
-    (11, 5, DATEADD('HOUR', -1, CURRENT_TIMESTAMP), 'IN_TRANSIT', 'Oakville Warehouse', NULL),
-    (12, 6, DATEADD('HOUR', -10, CURRENT_TIMESTAMP), 'ACCEPTED', 'Pickering Warehouse', NULL),
-    (13, 6, DATEADD('HOUR', -4, CURRENT_TIMESTAMP), 'IN_TRANSIT', 'Toronto Warehouse', NULL),
-    (14, 7, DATEADD('DAY', -2, CURRENT_TIMESTAMP), 'ACCEPTED', 'Ottawa Warehouse', NULL),
-    (15, 7, DATEADD('DAY', -1, CURRENT_TIMESTAMP), 'DELIVERED', 'Toronto', 'Package delivered successfully'),
-    (16, 8, DATEADD('HOUR', -3, CURRENT_TIMESTAMP), 'ACCEPTED', 'Montreal Warehouse', NULL),
-    (17, 9, DATEADD('HOUR', -1, CURRENT_TIMESTAMP), 'ACCEPTED', 'Niagara Warehouse', 'Waiting for route assignment'),
-    (18, 10, DATEADD('HOUR', -6, CURRENT_TIMESTAMP), 'ACCEPTED', 'London Warehouse', NULL),
-    (19, 10, DATEADD('HOUR', -2, CURRENT_TIMESTAMP), 'IN_TRANSIT', 'London Warehouse', NULL);
+    (4, 2, DATEADD('DAY', -3, CURRENT_TIMESTAMP), 'Verified', 'Mississauga Warehouse', NULL),
+    (5, 2, DATEADD('DAY', -2, CURRENT_TIMESTAMP), 'En Route', 'Mississauga Warehouse', NULL),
+    (6, 2, DATEADD('DAY', -1, CURRENT_TIMESTAMP), 'Drop Off', 'Hamilton', 'Package delivered to recipient'),
+    (7, 3, DATEADD('HOUR', -12, CURRENT_TIMESTAMP), 'En Route', 'Scarborough Warehouse', NULL),
+    (8, 3, DATEADD('HOUR', -6, CURRENT_TIMESTAMP), 'En Route', 'Toronto Warehouse', NULL),
+    (9, 4, DATEADD('HOUR', -2, CURRENT_TIMESTAMP), 'En Route', 'Brampton Warehouse', 'Awaiting pickup'),
+    (10, 5, DATEADD('HOUR', -5, CURRENT_TIMESTAMP), 'En Route', 'Oakville Warehouse', NULL),
+    (11, 5, DATEADD('HOUR', -1, CURRENT_TIMESTAMP), 'En Route', 'Oakville Warehouse', NULL),
+    (12, 6, DATEADD('HOUR', -10, CURRENT_TIMESTAMP), 'En Route', 'Pickering Warehouse', NULL),
+    (13, 6, DATEADD('HOUR', -4, CURRENT_TIMESTAMP), 'En Route', 'Toronto Warehouse', NULL),
+    (14, 7, DATEADD('DAY', -2, CURRENT_TIMESTAMP), 'En Route', 'Ottawa Warehouse', NULL),
+    (15, 7, DATEADD('DAY', -1, CURRENT_TIMESTAMP), 'Drop Off', 'Toronto', 'Package delivered successfully'),
+    (16, 8, DATEADD('HOUR', -3, CURRENT_TIMESTAMP), 'En Route', 'Montreal Warehouse', NULL),
+    (17, 9, DATEADD('HOUR', -1, CURRENT_TIMESTAMP), 'En Route', 'Niagara Warehouse', 'Waiting for route assignment'),
+    (18, 10, DATEADD('HOUR', -6, CURRENT_TIMESTAMP), 'En Route', 'London Warehouse', NULL),
+    (19, 10, DATEADD('HOUR', -2, CURRENT_TIMESTAMP), 'En Route', 'London Warehouse', NULL);
 --Reviews
 INSERT INTO review (reviewId, orderId, customerId, rating, comment, createdAt) VALUES
    (1, 1, 1, 5, 'Great service, delivered on time!', CURRENT_TIMESTAMP),
