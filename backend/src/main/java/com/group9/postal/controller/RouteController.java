@@ -5,21 +5,35 @@ import com.group9.postal.model.Route;
 import com.group9.postal.repository.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.group9.postal.model.User;
 import com.group9.postal.model.Order;
 import com.group9.postal.model.Warehouse;
+import com.group9.postal.model.RouteStop;
 
 import com.group9.postal.repository.UserRepository;
-import com.group9.postal.repository.UserRepository;
-import com.group9.postal.repository.UserRepository;
+import com.group9.postal.repository.WarehouseRepository;
+import com.group9.postal.repository.OrderRepository;
+
 
 @CrossOrigin
 @RestController
 public class RouteController {
     @Autowired
     private final RouteRepository repository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private WarehouseRepository warehouseRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
 
     public RouteController(RouteRepository repository) {
         this.repository = repository;
@@ -72,9 +86,43 @@ public class RouteController {
     //Set route
     @PostMapping("/route/manual")
     Route setManualRoute(
-            @RequestParam Long driverId,
+            @RequestParam Long driverEmail,
             @RequestParam Long warehouseId,
             @RequestParam List<Long> orderIds ) {
+        User driver = userRepository.findById(driverEmail).orElseThrow(() -> new RuntimeException("Driver not found"));
+        Warehouse warehouse = warehouseRepository.findById(warehouseId).orElseThrow(() -> new RuntimeException("Warehouse not found"));
+        List<Order> orders = orderRepository.findAllById(orderIds);
+
+        if (orders.isEmpty()) {
+            throw new RuntimeException("No valid orders found");
+        }
+
+        // Check all order IDs were valid
+        if (orders.size() != orderIds.size()) {
+            throw new RuntimeException("One or more orderIds are invalid");
+        }
+
+        Route route = new Route();
+        route.setDriver(driver);
+        route.setWarehouse(warehouse);
+        route.setRouteStatus("PLANNED");
+
+        List<RouteStop> routeStops = new ArrayList<>();
+        int sequence = 1;
+
+        for (Order order : orders) {
+            RouteStop stop = new RouteStop(
+                    route,
+                    sequence,
+                    order.getDropoffAddress(),
+                    null,
+                    null
+            );
+            routeStops.add(stop);
+            sequence++;
+        }
+        route.setStops(routeStops);
+        return repository.save(route);
 
     }
 
