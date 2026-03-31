@@ -11,30 +11,31 @@ INSERT INTO users (userId, name, email, passwordHash, role, phone) VALUES
     (9, 'Ilora Scott', 'ilora@postal.com', 'password123', 'DRIVER', '123-456-0909'),
     (10,'Jimmy John', 'jimmy@gmail.com', 'password123', 'CUSTOMER', '123-456-1010');
 -- Address
-INSERT INTO address (addressId, buildingType, aptNum, streetNum, streetName, streetType, city, provinceState, country, postalZip) VALUES
-    (1, 'WAREHOUSE', null, 178, 'High Park', 'AVENUE', 'Toronto', 'Ontario', 'Canada', 'M6P2S4'),
-    (2, 'WAREHOUSE', null, 4415, 'Mississauga', 'ROAD', 'Mississauga', 'Ontario', 'Canada', 'L5M3G8'),
-    (3, 'WAREHOUSE', null, 900, 'Markham', 'ROAD', 'Scarborough', 'Ontario', 'Canada', 'M1H2Y2'),
-    (4, 'WAREHOUSE', null, 25, 'Peel Centre', 'DRIVE', 'Brampton', 'Ontario', 'Canada', 'L6T3R5'),
-    (5, 'WAREHOUSE', null, 2420, 'Sixth', 'LINE', 'Oakville', 'Ontario', 'Canada', 'L6H5Z8'),
-    (6, 'WAREHOUSE', null, 1866, 'Liverpool', 'ROAD', 'Pickering', 'Ontario', 'Canada', 'L1V1W3'),
-    (7, 'WAREHOUSE', null, 1, 'Wellington', 'STREET', 'Ottawa', 'Ontario', 'Canada', 'K1A0A9'),
-    (8, 'WAREHOUSE', null, 1127, 'Mont-Royal', 'AVENUE', 'Montreal', 'Quebec', 'Canada', 'H2J1X9'),
-    (9, 'WAREHOUSE', null, 4852, 'Clifton', 'HILL', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3N4'),
-    (10, 'WAREHOUSE', null, 1235, 'Richmond', 'STREET', 'London', 'Ontario', 'Canada', 'N6A0C1'),
-    (11, 'APARTMENT', 1902, 5785, 'Victoria', 'AVENUE', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3L6'),
-    (12, 'HOTEL', '22A', 99, 'Wellesley', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M7A1W3'),
-    (13, 'HOUSE', null, 140, 'King', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5H3Y2'),
-    (14, 'HOUSE', null, 33, 'Yonge', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5E1G4'),
-    (15, 'HOUSE', null, 6360, 'Hawthorne', 'DRIVE', 'Windsor', 'Ontario', 'Canada', 'N8T1J9'),
-    (16, 'HOUSE', null, 50, 'Ouellette', 'AVENUE', 'Windsor', 'Ontario', 'Canada', 'N9A6T3'),
-    (17, 'HOUSE', null, 100, 'King', 'STREET', 'Hamilton', 'Ontario', 'Canada', 'L8P1A2'),
-    (18, 'HOUSE', null, 555, 'University', 'AVENUE', 'Toronto', 'Ontario', 'Canada', 'M5G1X8'),
-    (19, 'HOUSE', null, 200, 'Dundas', 'STREET', 'Belleville', 'Ontario', 'Canada', 'K8N1E4'),
-    (20, 'HOUSE', null, 181, 'Queen', 'STREET', 'Kitchener', 'Ontario', 'Canada', 'N2H2H2'),
-    (21, 'HOUSE', null, 1, 'Stone', 'ROAD', 'Guelph', 'Ontario', 'Canada', 'N1G2W1'),
-    (22, 'HOUSE', null, 10, 'Dundas', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5B2G9'),
-    (23, 'HOUSE', null, 77, 'Bay', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5J2S1');
+INSERT INTO address (addressId, buildingType, aptNum, streetNum, streetName, streetType, city, provinceState, country, postalZip, latitude, longitude) VALUES
+   (1, 'WAREHOUSE', null, 178, 'High Park', 'AVENUE', 'Toronto', 'Ontario', 'Canada', 'M6P2S4', 43.6532, -79.4650),
+   (2, 'WAREHOUSE', null, 4415, 'Mississauga', 'ROAD', 'Mississauga', 'Ontario', 'Canada', 'L5M3G8', 43.5890, -79.6441),
+   (3, 'WAREHOUSE', null, 900, 'Markham', 'ROAD', 'Scarborough', 'Ontario', 'Canada', 'M1H2Y2', 43.7700, -79.2600),
+   (4, 'WAREHOUSE', null, 25, 'Peel Centre', 'DRIVE', 'Brampton', 'Ontario', 'Canada', 'L6T3R5', 43.7315, -79.7624),
+   (5, 'WAREHOUSE', null, 2420, 'Sixth', 'LINE', 'Oakville', 'Ontario', 'Canada', 'L6H5Z8', 43.4470, -79.7260),
+   (6, 'WAREHOUSE', null, 1866, 'Liverpool', 'ROAD', 'Pickering', 'Ontario', 'Canada', 'L1V1W3', 43.8384, -79.0870),
+   (7, 'WAREHOUSE', null, 1, 'Wellington', 'STREET', 'Ottawa', 'Ontario', 'Canada', 'K1A0A9', 45.4236, -75.7009),
+   (8, 'WAREHOUSE', null, 1127, 'Mont-Royal', 'AVENUE', 'Montreal', 'Quebec', 'Canada', 'H2J1X9', 45.5260, -73.5730),
+   (9, 'WAREHOUSE', null, 4852, 'Clifton', 'HILL', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3N4', 43.0896, -79.0849),
+   (10, 'WAREHOUSE', null, 1235, 'Richmond', 'STREET', 'London', 'Ontario', 'Canada', 'N6A0C1', 42.9849, -81.2453),
+
+   (11, 'APARTMENT', 1902, 5785, 'Victoria', 'AVENUE', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3L6', 43.0912, -79.0845),
+   (12, 'HOTEL', '22A', 99, 'Wellesley', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M7A1W3', 43.6645, -79.3830),
+   (13, 'HOUSE', null, 140, 'King', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5H3Y2', 43.6487, -79.3800),
+   (14, 'HOUSE', null, 33, 'Yonge', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5E1G4', 43.6475, -79.3777),
+   (15, 'HOUSE', null, 6360, 'Hawthorne', 'DRIVE', 'Windsor', 'Ontario', 'Canada', 'N8T1J9', 42.3150, -82.9700),
+   (16, 'HOUSE', null, 50, 'Ouellette', 'AVENUE', 'Windsor', 'Ontario', 'Canada', 'N9A6T3', 42.3170, -83.0350),
+   (17, 'HOUSE', null, 100, 'King', 'STREET', 'Hamilton', 'Ontario', 'Canada', 'L8P1A2', 43.2557, -79.8711),
+   (18, 'HOUSE', null, 555, 'University', 'AVENUE', 'Toronto', 'Ontario', 'Canada', 'M5G1X8', 43.6580, -79.3890),
+   (19, 'HOUSE', null, 200, 'Dundas', 'STREET', 'Belleville', 'Ontario', 'Canada', 'K8N1E4', 44.1628, -77.3832),
+   (20, 'HOUSE', null, 181, 'Queen', 'STREET', 'Kitchener', 'Ontario', 'Canada', 'N2H2H2', 43.4516, -80.4925),
+   (21, 'HOUSE', null, 1, 'Stone', 'ROAD', 'Guelph', 'Ontario', 'Canada', 'N1G2W1', 43.5300, -80.2230),
+   (22, 'HOUSE', null, 10, 'Dundas', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5B2G9', 43.6561, -79.3802),
+   (23, 'HOUSE', null, 77, 'Bay', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5J2S1', 43.6435, -79.3780);
 -- Warehouses
 INSERT INTO warehouse (warehouseId, name, addressId, capacityMaxPackages, region) VALUES
     (1, 'Toronto Warehouse', 1 , 5000, 'Toronto'),
@@ -60,17 +61,17 @@ INSERT INTO vehicle (vehicleId, plate, type, capacityWeight, capacityVolume) VAL
     (9,'GHIJ 333','VAN',520.0,10.5),
     (10,'KLMN 444','TRUCK',2500.0,50.0);
 -- Orders (1,2,6,7,10 Ids are customers)
-INSERT INTO orders (orderId, createdAt, pickupAddress, dropoffAddress, contactName, contactEmail, contactPhone, totalCost, orderStatus) VALUES
-(1,  CURRENT_TIMESTAMP, '23 Bay Street Toronto',        '20 Queen Street Kitchener',    'Alice Johnson',  'alice@email.com',  '416-555-0101', 25.50, 'Verified'),
-(2,  CURRENT_TIMESTAMP, '13 King Street Toronto',        '17 King Street Hamilton',      'Bob Smith',      'bob@email.com',    '416-555-0102', 18.75, 'Drop Off'),
-(3,  CURRENT_TIMESTAMP, '14 Yonge Street Toronto',       '15 Hawthorne Drive Windsor',   'Carol Lee',      'carol@email.com',  '416-555-0103', 42.00, 'En Route'),
-(4,  CURRENT_TIMESTAMP, '16 Ouellette Avenue Windsor',   '18 University Avenue Toronto', 'David Park',     'david@email.com',  '416-555-0104', 21.30, 'Pending'),
-(5,  CURRENT_TIMESTAMP, '19 Dundas Street Belleville',   '21 Stone Road Guelph',         'Eve Martinez',   'eve@email.com',    '416-555-0105', 33.90, 'Verified'),
-(6,  CURRENT_TIMESTAMP, '22 Dundas Street Toronto',      '11 Victoria Avenue Niagara',   'Alice Johnson',  'alice@email.com',  '416-555-0101', 27.45, 'En Route'),
-(7,  CURRENT_TIMESTAMP, '20 Queen Street Kitchener',     '23 Bay Street Toronto',        'Bob Smith',      'bob@email.com',    '416-555-0102', 16.80, 'Drop Off'),
-(8,  CURRENT_TIMESTAMP, '17 King Street Hamilton',       '16 Ouellette Avenue Windsor',  'Carol Lee',      'carol@email.com',  '416-555-0103', 24.60, 'Verified'),
-(9,  CURRENT_TIMESTAMP, '15 Hawthorne Drive Windsor',    '19 Dundas Street Belleville',  'David Park',     'david@email.com',  '416-555-0104', 38.25, 'Pending'),
-(10, CURRENT_TIMESTAMP, '18 University Avenue Toronto',  '13 King Street Toronto',       'Eve Martinez',   'eve@email.com',    '416-555-0105', 19.99, 'Verified');
+INSERT INTO orders (orderId, createdAt, pickup_address_id, dropoff_address_id, contactName, contactEmail, contactPhone, totalCost, orderStatus) VALUES
+    (1,  CURRENT_TIMESTAMP, 23, 20, 'Alice Johnson',  'alice@email.com',  '416-555-0101', 25.50, 'Verified'),
+    (2,  CURRENT_TIMESTAMP, 13, 17, 'Bob Smith',      'bob@email.com',    '416-555-0102', 18.75, 'Drop Off'),
+    (3,  CURRENT_TIMESTAMP, 14, 15, 'Carol Lee',      'carol@email.com',  '416-555-0103', 42.00, 'En Route'),
+    (4,  CURRENT_TIMESTAMP, 16, 18, 'David Park',     'david@email.com',  '416-555-0104', 21.30, 'Pending'),
+    (5,  CURRENT_TIMESTAMP, 19, 21, 'Eve Martinez',   'eve@email.com',    '416-555-0105', 33.90, 'Verified'),
+    (6,  CURRENT_TIMESTAMP, 22, 11, 'Alice Johnson',  'alice@email.com',  '416-555-0101', 27.45, 'En Route'),
+    (7,  CURRENT_TIMESTAMP, 20, 23, 'Bob Smith',      'bob@email.com',    '416-555-0102', 16.80, 'Drop Off'),
+    (8,  CURRENT_TIMESTAMP, 17, 16, 'Carol Lee',      'carol@email.com',  '416-555-0103', 24.60, 'Verified'),
+    (9,  CURRENT_TIMESTAMP, 15, 19, 'David Park',     'david@email.com',  '416-555-0104', 38.25, 'Pending'),
+    (10, CURRENT_TIMESTAMP, 18, 13, 'Eve Martinez',   'eve@email.com',    '416-555-0105', 19.99, 'Verified');
 --Shipments
 INSERT INTO shipment (shipmentId, orderId, trackingNumber, type, weight, volume, fragileFlag, currentStatus, currentWarehouseId) VALUES
     (1,  1,  'TRK-000001', 'PARCEL', 2.5, 0.50, false, 'En Route', 1),
@@ -89,7 +90,7 @@ INSERT INTO route (routeId, driverId, warehouseId, plannedStartTime, plannedEndT
 (2, 4, 2, DATEADD('HOUR', -4, CURRENT_TIMESTAMP), DATEADD('HOUR', 4, CURRENT_TIMESTAMP), 'SCHEDULED'),
 (3, 5, 3, DATEADD('HOUR', -2, CURRENT_TIMESTAMP), DATEADD('HOUR', 6, CURRENT_TIMESTAMP), 'SCHEDULED');
 --Route Stops
-INSERT INTO route_stop (stopId, routeId, stopSequence, stopAddress, stopType, plannedTime, completedTime) VALUES
+INSERT INTO route_stop (stopId, routeId, stopSequence, addressId, stopType, plannedTime, completedTime) VALUES
   (1, 1, 1, 15, 'PICKUP',  DATEADD('HOUR', -4, CURRENT_TIMESTAMP), DATEADD('HOUR', -3, CURRENT_TIMESTAMP)),
   (2, 1, 2, 23, 'PICKUP',  DATEADD('HOUR', -3, CURRENT_TIMESTAMP), NULL),
   (3, 1, 3, 20, 'DELIVERY', DATEADD('HOUR', -1, CURRENT_TIMESTAMP), NULL),

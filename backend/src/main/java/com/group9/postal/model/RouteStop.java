@@ -1,5 +1,6 @@
 package com.group9.postal.model;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import com.group9.postal.model.Address;
 
 
 @Entity
@@ -27,8 +29,10 @@ public class RouteStop {
 
     private int stopSequence;
 
-    @NotEmpty
-    private String stopAddress;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "addressId")
+    private Address stopAddress;
 
     private enum StopType {
         PICKUP,
@@ -48,7 +52,7 @@ public class RouteStop {
     @Nullable
     private List<StopShipment> stopShipments = new ArrayList<>();
 
-    public RouteStop(Route route, int stopSequence, String stopAddress,
+    public RouteStop(Route route, int stopSequence, Address stopAddress,
                      StopType stopType, LocalDateTime plannedTime) {
         this.route = route;
         this.stopSequence = stopSequence;
