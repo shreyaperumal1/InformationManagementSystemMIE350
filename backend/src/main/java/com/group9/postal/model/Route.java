@@ -1,5 +1,6 @@
 package com.group9.postal.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +39,7 @@ public class Route {
     private String routeStatus;
 
     @OneToMany(mappedBy = "route")
+    @JsonManagedReference
     private List<RouteStop> stops = new ArrayList<>();
 
     public Route(User driver, Warehouse warehouse, String routeType,

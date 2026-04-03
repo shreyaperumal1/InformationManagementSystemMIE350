@@ -6,8 +6,10 @@ import com.group9.postal.dto.OrderResponse;
 import com.group9.postal.dto.UpdateOrderStatusRequest;
 import com.group9.postal.model.Address;
 import com.group9.postal.model.Order;
+import com.group9.postal.model.User;
 import com.group9.postal.repository.AddressRepository;
 import com.group9.postal.repository.OrderRepository;
+import com.group9.postal.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +20,12 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final AddressRepository addressRepository;
+    private final UserRepository userRepository;
 
-    public OrderService(OrderRepository orderRepository, AddressRepository addressRepository) {
+    public OrderService(OrderRepository orderRepository, AddressRepository addressRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.addressRepository = addressRepository;
+        this.userRepository = userRepository;
     }
 
     public OrderResponse createOrder(CreateOrderRequest request) {
@@ -34,6 +38,10 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Dropoff address not found"));
 
         Order order = new Order();
+        User customer = userRepository.findById(request.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        order.setCustomer(customer);
         order.setContactName(request.getContactName().trim());
         order.setContactEmail(request.getContactEmail().trim());
         order.setContactPhone(request.getContactPhone().trim());
@@ -65,6 +73,13 @@ public class OrderService {
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
+    }
+
+    public List<OrderResponse> getOrdersByCustomer(Long customerId) {
+        return orderRepository.findByCustomerUserId(customerId)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     public OrderResponse updateOrderStatus(Long orderId, UpdateOrderStatusRequest request) {
@@ -128,6 +143,10 @@ public class OrderService {
         response.setTotalCost(order.getTotalCost());
         response.setOrderStatus(order.getOrderStatus());
         response.setCreatedAt(order.getCreatedAt());
+        if (order.getCustomer() != null) {
+            response.setCustomerId(order.getCustomer().getUserId());
+            response.setCustomerEmail(order.getCustomer().getEmail());
+        }
         return response;
     }
 }

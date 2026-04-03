@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface ShipmentRepository extends JpaRepository<Shipment, Long> {
+    List<Shipment> findByOrderOrderId(Long orderId);
     Optional<Shipment> findByTrackingNumber(String trackingNumber);
     List<Shipment> findByCurrentStatus(String status);
     boolean existsByTrackingNumber(String trackingNumber);

@@ -25,13 +25,18 @@ public class Order {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "pickup_address_id", nullable = false)
+    @JoinColumn(name = "pickupAddress", nullable = false)
     private Address pickupAddress;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "dropoff_address_id", nullable = false)
+    @JoinColumn(name = "dropoffAddress", nullable = false)
     private Address dropoffAddress;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private User customer;
 
     @NotBlank
     private String contactName;

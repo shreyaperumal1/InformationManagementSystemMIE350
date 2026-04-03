@@ -1,13 +1,20 @@
 package com.group9.postal.dto;
 
 import com.group9.postal.model.Address;
+import com.group9.postal.model.User;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 public class OrderResponse {
 
     private Long orderId;
+    private Long customerId;
+    private String customerEmail;
     private String contactName;
     private String contactEmail;
     private String contactPhone;
@@ -17,75 +24,4 @@ public class OrderResponse {
     private String orderStatus;
     private LocalDateTime createdAt;
 
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getContactName() {
-        return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
-
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-    public String getContactPhone() {
-        return contactPhone;
-    }
-
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
-    }
-
-    public Address getPickupAddress() {
-        return pickupAddress;
-    }
-
-    public void setPickupAddress(Address pickupAddress) {
-        this.pickupAddress = pickupAddress;
-    }
-
-    public Address getDropoffAddress() {
-        return dropoffAddress;
-    }
-
-    public void setDropoffAddress(Address dropoffAddress) {
-        this.dropoffAddress = dropoffAddress;
-    }
-
-    public BigDecimal getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(BigDecimal totalCost) {
-        this.totalCost = totalCost;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }

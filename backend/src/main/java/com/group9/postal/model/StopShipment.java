@@ -1,5 +1,6 @@
 package com.group9.postal.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class StopShipment {
     @ManyToOne
     @MapsId("stopId")
     @JoinColumn(name = "stopId")
+    @JsonBackReference
     private RouteStop routeStop;
 
     @ManyToOne
@@ -36,26 +38,12 @@ public class StopShipment {
         this.action = action;
     }
 
+    @Setter
+    @Getter
     @Embeddable
     public static class StopShipmentId implements Serializable {
         private Long stopId;
         private Long shipmentId;
-
-        public Long getStopId() {
-            return stopId;
-        }
-
-        public void setStopId(Long id) {
-            this.stopId = id;
-        }
-
-        public Long getShipmentId() {
-            return shipmentId;
-        }
-
-        public void setShipmentId(Long id) {
-            this.shipmentId = id;
-        }
 
         @Override
         public boolean equals(Object o) {

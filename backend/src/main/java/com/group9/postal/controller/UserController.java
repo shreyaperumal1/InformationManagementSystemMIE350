@@ -1,6 +1,7 @@
 package com.group9.postal.controller;
 
 import com.group9.postal.controller.exceptions.UserNotFoundException;
+import com.group9.postal.dto.RegisterRequest;
 import com.group9.postal.model.User;
 import com.group9.postal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,6 @@ public class UserController {
                     user.setEmail(newUser.getEmail());
                     user.setPhone(newUser.getPhone());
                     user.setRole(newUser.getRole());
-                    user.setPasswordHash(newUser.getPasswordHash());
                     return repository.save(user);
                 })
                 .orElseGet(() -> {
@@ -75,10 +75,37 @@ public class UserController {
         response.setUserId(user.getUserId());
         response.setName(user.getName());
         response.setEmail(user.getEmail());
+        response.setPhone(user.getPhone());
         response.setRole(String.valueOf(user.getRole()));
         response.setMessage("Login successful");
 
         return ResponseEntity.ok(response);
+    }
+    @PostMapping("/auth/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        try {
+
+            Optional<User> existingUser = repository.findByEmail(request.getEmail());
+            if (existingUser.isPresent()) {
+                return ResponseEntity.badRequest().body("Email already in use");
+            }
+
+            User user = new User();
+            user.setName(request.getName());
+            user.setEmail(request.getEmail());
+            user.setPhone(request.getPhone());
+            user.setPasswordHash(request.getPassword());
+            user.setRole(User.Role.CUSTOMER);
+
+            repository.save(user);
+
+            return ResponseEntity.ok("User registered successfully");
+
+        } catch (Exception e) {
+            e.printStackTrace(); // 🔥 THIS IS KEY
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/users/{id}")

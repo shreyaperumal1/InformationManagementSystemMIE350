@@ -1,8 +1,13 @@
 package com.group9.postal.controller;
 
 import com.group9.postal.controller.exceptions.ReviewNotFoundException;
+import com.group9.postal.dto.CreateReviewRequest;
+import com.group9.postal.model.Order;
 import com.group9.postal.model.Review;
+import com.group9.postal.model.User;
+import com.group9.postal.repository.OrderRepository;
 import com.group9.postal.repository.ReviewRepository;
+import com.group9.postal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,6 +17,12 @@ import java.util.List;
 public class ReviewController {
     @Autowired
     private final ReviewRepository repository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public ReviewController(ReviewRepository repository) {
         this.repository = repository;
@@ -39,8 +50,21 @@ public class ReviewController {
     }
 
     @PostMapping("/reviews")
-    Review createReview(@RequestBody Review newReview) {
-        return repository.save(newReview);
+    Review createReview(@RequestBody CreateReviewRequest req) {
+
+        Order order = orderRepository.findById(req.getOrderId())
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        User customer = userRepository.findById(req.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Review review = new Review();
+        review.setOrder(order);
+        review.setCustomer(customer);
+        review.setRating(req.getRating());
+        review.setComment(req.getComment());
+
+        return repository.save(review);
     }
 
     @PutMapping("/reviews/{id}")

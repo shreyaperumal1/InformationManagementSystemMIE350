@@ -1,6 +1,7 @@
 package com.group9.postal.model;
 
-import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,6 @@ import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import com.group9.postal.model.Address;
 
 
 @Entity
@@ -25,14 +25,14 @@ public class RouteStop {
 
     @ManyToOne
     @JoinColumn(name = "routeId")
+    @JsonBackReference
     private Route route;
 
     private int stopSequence;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "addressId")
-    private Address stopAddress;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "stopAddress")
+    private Address address;
 
     private enum StopType {
         PICKUP,
@@ -49,14 +49,14 @@ public class RouteStop {
     private LocalDateTime completedTime;
 
     @OneToMany(mappedBy = "routeStop")
-    @Nullable
+    @JsonManagedReference
     private List<StopShipment> stopShipments = new ArrayList<>();
 
-    public RouteStop(Route route, int stopSequence, Address stopAddress,
+    public RouteStop(Route route, int stopSequence, Address address,
                      StopType stopType, LocalDateTime plannedTime) {
         this.route = route;
         this.stopSequence = stopSequence;
-        this.stopAddress = stopAddress;
+        this.address = address;
         this.stopType = stopType;
         this.plannedTime = plannedTime;
     }

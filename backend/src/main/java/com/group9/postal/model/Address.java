@@ -3,32 +3,30 @@ package com.group9.postal.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
 @Table(name = "address")
-public class Address {
 
+public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long addressId;
 
-    public enum BuildingType {
+    @NotEmpty
+    private enum BuildingType {
         HOUSE,
         APARTMENT,
         OFFICE,
         HOTEL,
         WAREHOUSE,
         OTHER
-    }
+    };
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private BuildingType buildingType;
 
@@ -36,7 +34,10 @@ public class Address {
 
     private int streetNum;
 
-    public enum StreetType {
+    @NotEmpty
+    private String streetName;
+
+    private enum StreetType{
         DRIVE,
         AVENUE,
         BOULEVARD,
@@ -50,32 +51,22 @@ public class Address {
         ROAD,
         LINE,
         HILL
-    }
+    };
 
-    @NotBlank
-    private String streetName;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     private StreetType streetType;
 
-    @NotBlank
+    @NotEmpty
     private String city;
 
-    @NotBlank
+    @NotEmpty
     private String provinceState;
 
-    @NotBlank
+    @NotEmpty
     private String country;
 
-    @NotBlank
+    @NotEmpty
     private String postalZip;
-
-    @NotNull
-    private double longitude;
-
-    @NotNull
-    private double latitude;
 
     public Address(Long addressId,
                    BuildingType buildingType,
@@ -86,9 +77,7 @@ public class Address {
                    String city,
                    String provinceState,
                    String country,
-                   String postalZip,
-                   double latitude,
-                   double longitude) {
+                   String postalZip) {
 
         this.addressId = addressId;
         this.buildingType = buildingType;
@@ -100,7 +89,5 @@ public class Address {
         this.provinceState = provinceState;
         this.country = country;
         this.postalZip = postalZip;
-        this.latitude = latitude;
-        this.longitude = longitude;
     }
 }
