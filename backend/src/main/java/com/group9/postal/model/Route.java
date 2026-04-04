@@ -35,6 +35,13 @@ public class Route {
     @Nullable
     private LocalDateTime plannedEndTime;
 
+    @Enumerated
+    enum Status {
+        SCHEDULED,
+        IN_PROGRESS,
+        COMPLETE
+    }
+
     @NotEmpty
     private String routeStatus;
 

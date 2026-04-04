@@ -150,6 +150,7 @@ public class RouteController {
         repository.deleteById(routeId);
     }
 
+    /**
     @PostMapping("/route/{id}/optimize")
     public List<RouteStop> optimizeRoute(@PathVariable Long id) {
         Route route = repository.findById(id)
@@ -157,10 +158,10 @@ public class RouteController {
 
         Address warehouse = route.getWarehouse().getAddress();
         List<Address> stopAddresses = route.getStops().stream()
-                .map(stop -> stop.getStopAddress())
+                .map(stop -> stop.getAddress())
                 .collect(Collectors.toList());
 
-        List<Address> optimized = optimizationService.optimizeRoute(
+        List<Address> optimized = optimizationService.runOptimizer(
                 warehouse, stopAddresses
         );
 
@@ -169,7 +170,7 @@ public class RouteController {
             Address currentAddress = optimized.get(i);
 
             RouteStop stop = route.getStops().stream()
-                    .filter(s -> s.getStopAddress().equals(currentAddress))
+                    .filter(s -> s.getAddress().equals(currentAddress))
                     .findFirst()
                     .orElseThrow();
 
@@ -179,4 +180,5 @@ public class RouteController {
 
         return route.getStops();
     }
+    ***/
 }
