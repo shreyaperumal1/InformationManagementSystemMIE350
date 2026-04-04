@@ -6,9 +6,12 @@ import com.group9.postal.model.Route;
 import com.group9.postal.repository.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.group9.postal.repository.*;
+import com.group9.postal.service.RouteOptimizationService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.group9.postal.model.User;
 import com.group9.postal.model.Order;
@@ -33,6 +36,12 @@ public class RouteController {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private RouteStopRepository stopRepository;
+
+    @Autowired
+    private RouteOptimizationService optimizationService;
 
     public RouteController(RouteRepository repository) {
         this.repository = repository;
@@ -139,5 +148,35 @@ public class RouteController {
     @DeleteMapping("/route/{id}")
     void deleteRoute(@PathVariable("id") Long routeId) {
         repository.deleteById(routeId);
+    }
+
+    @PostMapping("/route/{id}/optimize")
+    public List<RouteStop> optimizeRoute(@PathVariable Long id) {
+        Route route = repository.findById(id)
+                .orElseThrow(() -> new RouteNotFoundException(id));
+
+        Address warehouse = route.getWarehouse().getAddress();
+        List<Address> stopAddresses = route.getStops().stream()
+                .map(stop -> stop.getStopAddress())
+                .collect(Collectors.toList());
+
+        List<Address> optimized = optimizationService.optimizeRoute(
+                warehouse, stopAddresses
+        );
+
+        // Update stop sequence based on optimized order
+        for (int i = 0; i < optimized.size(); i++) {
+            Address currentAddress = optimized.get(i);
+
+            RouteStop stop = route.getStops().stream()
+                    .filter(s -> s.getStopAddress().equals(currentAddress))
+                    .findFirst()
+                    .orElseThrow();
+
+            stop.setStopSequence(i + 1);
+            stopRepository.save(stop);
+        }
+
+        return route.getStops();
     }
 }

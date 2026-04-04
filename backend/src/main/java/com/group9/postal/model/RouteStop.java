@@ -1,5 +1,6 @@
 package com.group9.postal.model;
 
+import jakarta.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.group9.postal.model.Address;
 
 @Entity
 @NoArgsConstructor
