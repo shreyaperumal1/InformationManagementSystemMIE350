@@ -69,7 +69,7 @@ public class RouteController {
     }
 
     @PostMapping("/route")
-    Route createRoute(@RequestBody Route newRoute) {
+    public Route createRoute(@RequestBody Route newRoute) {
         return repository.save(newRoute);
     }
 
