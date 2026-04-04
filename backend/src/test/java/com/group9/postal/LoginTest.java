@@ -1,7 +1,6 @@
 package com.group9.postal;
 
 import com.group9.postal.repository.UserRepository;
-import com.group9.postal.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
