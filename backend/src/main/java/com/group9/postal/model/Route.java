@@ -35,23 +35,23 @@ public class Route {
     @Nullable
     private LocalDateTime plannedEndTime;
 
-    @Enumerated
-    enum Status {
+    public enum Status {
         SCHEDULED,
         IN_PROGRESS,
         COMPLETE
     }
 
+    @Enumerated
     @NotEmpty
     private String routeStatus;
 
     @OneToMany(mappedBy = "route")
     @JsonManagedReference
-    private List<RouteStop> stops = new ArrayList<>();
+    private List<Order> stops = new ArrayList<>();
 
     public Route(User driver, Warehouse warehouse, String routeType,
                  LocalDateTime plannedStartTime, LocalDateTime plannedEndTime,
-                 String routeStatus, List<RouteStop> stops) {
+                 String routeStatus, List<Order> stops) {
         this.driver = driver;
         this.warehouse = warehouse;
         this.plannedStartTime = plannedStartTime;

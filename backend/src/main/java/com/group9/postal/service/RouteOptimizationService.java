@@ -4,10 +4,12 @@ import com.group9.postal.model.*;
 import com.group9.postal.repository.OrderRepository;
 import com.group9.postal.repository.RouteRepository;
 import com.group9.postal.repository.WarehouseRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -23,7 +25,23 @@ public class RouteOptimizationService {
     @Autowired
     private RouteRepository routeRepository;
 
-    private List<Order> optimizeRoute(Address warehouse, List<Order> stops) {
+    private List<List<Order>> splitPickupDelivery(List<Order> currentOrders) {
+        int order_count = currentOrders.size();
+        List<Order> pickups = new ArrayList<>();
+        List<Order> deliveries = new ArrayList<>();
+        for (Order order : currentOrders) {
+            if (order.getLocationStatus().equals(Order.LocationStatus.FOR_PICKUP)) {
+                pickups.add(order);
+            }
+            else if (order.getLocationStatus().equals(Order.LocationStatus.AT_WAREHOUSE)) {
+                deliveries.add(order);
+            }
+        }
+
+        return List.of(pickups, deliveries);
+    }
+
+    private List<Order> optimizeDropoffRoute(Address warehouse, List<Order> stops) {
         List<Order> unvisited = new ArrayList<>(stops);
         List<Order> optimized = new ArrayList<>();
         Address current = warehouse;
@@ -36,6 +54,13 @@ public class RouteOptimizationService {
         }
 
         return optimized;
+    }
+
+    private List<Order> optimizePickupRoute(Address warehouse, List<Order> stops) {
+        List<Order> optimized = optimizeDropoffRoute(warehouse, stops);
+        List<Order> reversed = new ArrayList<>(optimized);
+        Collections.reverse(reversed);
+        return reversed;
     }
 
     private Order findNearestOrder(Address from, List<Order> candidates) {
@@ -131,21 +156,57 @@ public class RouteOptimizationService {
         }
 
         int routeNum = Math.min(drivers.size(), orders.size());
-        List<List<Order>> clusteredOrders = clusters(routeNum, orders);
 
-        for (int i = 0; i < clusteredOrders.size() && i < drivers.size(); i++) {
-            List<Order> cluster = clusteredOrders.get(i);
-            List<Order> optimizedOrders = optimizeRoute(warehouse.getAddress(), cluster);
+        List<List<Order>> split = splitPickupDelivery(orders);
+        List<Order> pickups = split.get(0);
+        List<Order> dropoffs = split.get(1);
 
-            // Make new routeStops
+        int totalPicks = pickups.size();
+        int totalDrops = dropoffs.size();
 
-            Route route = new Route(
-                    drivers.get(i),
-                    warehouse,
-                    null,
-                    null,
-                    "SCHEDULED",
-                    optimizedOrders);
+        int pickupNum = (int) Math.round(
+                ((double) totalPicks / (totalDrops + totalPicks)) * routeNum
+        );
+        int dropoffNum = routeNum - pickupNum;
+
+        List<List<Order>> clusteredPickupOrders = clusters(pickupNum, pickups);
+        List<List<Order>> clusteredDropoffOrders = clusters(dropoffNum, dropoffs);
+
+        int driverIndex = 0;
+
+        // 🔹 PICKUP ROUTES
+        for (int i = 0; i < clusteredPickupOrders.size() && driverIndex < drivers.size(); i++) {
+            List<Order> cluster = clusteredPickupOrders.get(i);
+            List<Order> optimizedOrders = optimizePickupRoute(warehouse.getAddress(), cluster);
+
+            User driver = drivers.get(driverIndex++);
+
+            Route route = new Route();
+            route.setWarehouse(warehouse);
+            route.setRouteStatus("SCHEDULED");
+            route.setDriver(driver);
+            route.setStops(optimizedOrders);
+            route.setPlannedStartTime(null);
+            route.setPlannedEndTime(null);
+
+            Route savedRoute = routeRepository.save(route);
+            createdRoutes.add(savedRoute);
+        }
+
+        // 🔹 DROPOFF ROUTES
+        for (int i = 0; i < clusteredDropoffOrders.size() && driverIndex < drivers.size(); i++) {
+            List<Order> cluster = clusteredDropoffOrders.get(i);
+            List<Order> optimizedOrders = optimizeDropoffRoute(warehouse.getAddress(), cluster);
+
+            User driver = drivers.get(driverIndex++);
+
+            Route route = new Route();
+            route.setWarehouse(warehouse);
+            route.setRouteStatus("SCHEDULED");
+            route.setDriver(driver);
+            route.setStops(optimizedOrders);
+            route.setPlannedStartTime(null);
+            route.setPlannedEndTime(null);
 
             Route savedRoute = routeRepository.save(route);
             createdRoutes.add(savedRoute);

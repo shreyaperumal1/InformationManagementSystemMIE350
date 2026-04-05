@@ -52,6 +52,16 @@ public class Order {
     @NotBlank
     private String orderStatus;
 
+    public enum LocationStatus {
+        FOR_PICKUP,
+        FOR_DELIVERY,
+        AT_WAREHOUSE,
+        COMPLETE
+    }
+
+    @Enumerated(EnumType.STRING)
+    private LocationStatus locationStatus;
+
     public Order(String contactName, String contactEmail, String contactPhone,
                  Address pickupAddress, Address dropoffAddress,
                  BigDecimal totalCost, String orderStatus) {
@@ -62,5 +72,7 @@ public class Order {
         this.dropoffAddress = dropoffAddress;
         this.totalCost = totalCost;
         this.orderStatus = orderStatus;
+        //assume locationStatus always starts at pickup
+        this.locationStatus = LocationStatus.FOR_PICKUP;
     }
 }

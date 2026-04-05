@@ -91,6 +91,7 @@ public class RouteController {
                 });
     }
 
+    /***
     @PostMapping("/route/manual")
     Route setManualRoute(
             @RequestParam Long driverEmail,
@@ -116,7 +117,7 @@ public class RouteController {
         route.setWarehouse(warehouse);
         route.setRouteStatus("PLANNED");
 
-        List<RouteStop> routeStops = new ArrayList<>();
+        List<Order> routeStops = new ArrayList<>();
         int sequence = 1;
 
         for (Order order : orders) {
@@ -144,6 +145,7 @@ public class RouteController {
         route.setStops(routeStops);
         return repository.save(route);
     }
+     ***/
 
     @DeleteMapping("/route/{id}")
     void deleteRoute(@PathVariable("id") Long routeId) {
