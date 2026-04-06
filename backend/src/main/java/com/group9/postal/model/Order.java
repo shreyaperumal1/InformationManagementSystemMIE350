@@ -38,6 +38,10 @@ public class Order {
     @JoinColumn(name = "customer_id", nullable = false)
     private User customer;
 
+    @ManyToOne
+    @JoinColumn(name = "routeId")
+    private Route route;
+
     @NotBlank
     private String contactName;
 
