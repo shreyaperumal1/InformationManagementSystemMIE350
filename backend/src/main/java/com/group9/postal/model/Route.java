@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +41,8 @@ public class Route {
         COMPLETE
     }
 
-    @Enumerated
-    @NotEmpty
+    @Enumerated(EnumType.STRING)
+    @NotNull
     private Status routeStatus;
 
     @OneToMany(mappedBy = "route")
@@ -59,5 +59,4 @@ public class Route {
         this.routeStatus = routeStatus;
         this.stops = stops;
     }
-
 }
