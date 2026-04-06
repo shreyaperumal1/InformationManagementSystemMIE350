@@ -41,7 +41,7 @@ public class Route {
         COMPLETE
     }
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @NotEmpty
     private Status routeStatus;
 

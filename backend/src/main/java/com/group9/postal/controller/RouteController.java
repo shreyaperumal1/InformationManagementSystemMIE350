@@ -73,6 +73,26 @@ public class RouteController {
         return repository.save(newRoute);
     }
 
+    @PostMapping("/route/optimize")
+    public List<Route> optimizeRoute(@RequestBody java.util.Map<String, Object> request) {
+        Long warehouseId = ((Number) request.get("warehouseId")).longValue();
+        List<Integer> driverIdInts = (List<Integer>) request.get("driverIds");
+        List<Integer> orderIdInts = (List<Integer>) request.get("orderIds");
+
+        List<Long> driverIds = driverIdInts.stream().map(Long::valueOf).collect(Collectors.toList());
+        List<Long> orderIds = orderIdInts.stream().map(Long::valueOf).collect(Collectors.toList());
+
+        Warehouse warehouse = warehouseRepository.findById(warehouseId).orElse(null);
+        if (warehouse == null || orderIds.isEmpty() || driverIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<User> drivers = userRepository.findAllById(driverIds);
+        List<Order> orders = orderRepository.findAllById(orderIds);
+
+        return optimizationService.createOptimizedRoutes(warehouse, orders, drivers);
+    }
+
     @PutMapping("/route/{id}")
     Route updateRoute(@RequestBody Route newRoute, @PathVariable("id") Long routeId) {
         return repository.findById(routeId)

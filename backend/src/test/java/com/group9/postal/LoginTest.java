@@ -1,8 +1,8 @@
 package com.group9.postal;
 
 import com.group9.postal.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class LoginTest {
     @Test
     void customerLoginSuccess() throws Exception {
         ObjectNode loginJson = objectMapper.createObjectNode();
-        loginJson.put("email", "alice@email.com");
+        loginJson.put("email", "alice@gmail.com");
         loginJson.put("password", "password123");
 
         MockHttpServletResponse response = mockMvc.perform(
@@ -52,7 +52,7 @@ public class LoginTest {
 
         assertEquals("CUSTOMER", receivedJson.get("role").textValue());
         assertEquals("Login successful", receivedJson.get("message").textValue());
-        assertEquals("alice@email.com", receivedJson.get("email").textValue());
+        assertEquals("alice@gmail.com", receivedJson.get("email").textValue());
     }
 
     //Successful Admin Login Test
@@ -60,7 +60,7 @@ public class LoginTest {
     void adminLoginSuccess() throws Exception {
         ObjectNode loginJson = objectMapper.createObjectNode();
         loginJson.put("email", "emily@postal.com");
-        loginJson.put("password", "pass123");
+        loginJson.put("password", "password123");
 
         MockHttpServletResponse response = mockMvc.perform(
                         post("/auth/login")
@@ -105,7 +105,7 @@ public class LoginTest {
     @Test
     void loginWrongPassword() throws Exception {
         ObjectNode loginJson = objectMapper.createObjectNode();
-        loginJson.put("email", "alice@email.com");
+        loginJson.put("email", "alice@gmail.com");
         loginJson.put("password", "wrongpassword");
 
         MockHttpServletResponse response = mockMvc.perform(
@@ -170,7 +170,7 @@ public class LoginTest {
     @Test
     void loginEmptyPassword() throws Exception {
         ObjectNode loginJson = objectMapper.createObjectNode();
-        loginJson.put("email", "alice@email.com");
+        loginJson.put("email", "alice@gmail.com");
         loginJson.put("password", "");
 
         MockHttpServletResponse response = mockMvc.perform(
