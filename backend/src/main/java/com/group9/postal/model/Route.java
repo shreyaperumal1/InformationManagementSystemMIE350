@@ -43,7 +43,7 @@ public class Route {
 
     @Enumerated
     @NotEmpty
-    private String routeStatus;
+    private Status routeStatus;
 
     @OneToMany(mappedBy = "route")
     @JsonManagedReference
@@ -51,7 +51,7 @@ public class Route {
 
     public Route(User driver, Warehouse warehouse, String routeType,
                  LocalDateTime plannedStartTime, LocalDateTime plannedEndTime,
-                 String routeStatus, List<Order> stops) {
+                 Status routeStatus, List<Order> stops) {
         this.driver = driver;
         this.warehouse = warehouse;
         this.plannedStartTime = plannedStartTime;

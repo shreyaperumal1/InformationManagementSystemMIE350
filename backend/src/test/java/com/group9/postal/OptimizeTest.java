@@ -1,153 +1,178 @@
 package com.group9.postal;
 
-import com.group9.postal.model.Address;
-import com.group9.postal.model.Order;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.group9.postal.model.Route;
 import com.group9.postal.model.User;
 import com.group9.postal.model.Warehouse;
-import com.group9.postal.repository.OrderRepository;
 import com.group9.postal.repository.RouteRepository;
+import com.group9.postal.repository.UserRepository;
 import com.group9.postal.repository.WarehouseRepository;
-import com.group9.postal.service.RouteOptimizationService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@SpringBootTest
+@AutoConfigureMockMvc
 public class OptimizeTest {
 
-    private OrderRepository orderRepository;
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private WarehouseRepository warehouseRepository;
+
+    @Autowired
     private RouteRepository routeRepository;
-    private RouteOptimizationService routeOptimizationService;
 
-    @BeforeEach
-    void setUp() {
-        orderRepository = mock(OrderRepository.class);
-        warehouseRepository = mock(WarehouseRepository.class);
-        routeRepository = mock(RouteRepository.class);
+    @Test
+    void optimizeRoute_returnsEmptyList_whenWarehouseIdIsInvalid() throws Exception {
+        ObjectNode requestJson = objectMapper.createObjectNode();
+        requestJson.put("warehouseId", -1);
+        requestJson.putArray("driverIds");
+        requestJson.putArray("orderIds");
 
-        routeOptimizationService = new RouteOptimizationService();
+        MvcResult result = mockMvc.perform(
+                        post("/route/optimize")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(requestJson.toString())
+                )
+                .andExpect(status().isOk())
+                .andReturn();
 
-        ReflectionTestUtils.setField(routeOptimizationService, "repository", orderRepository);
-        ReflectionTestUtils.setField(routeOptimizationService, "warehouseRepository", warehouseRepository);
-        ReflectionTestUtils.setField(routeOptimizationService, "routeRepository", routeRepository);
+        JsonNode response = objectMapper.readTree(result.getResponse().getContentAsString());
+
+        assertTrue(response.isArray(), "Expected array response");
+        assertEquals(0, response.size(), "Expected empty list for invalid warehouse");
     }
 
     @Test
-    void createOptimizedRoutes_returnsEmptyList_whenWarehouseIsNull() {
-        List<Route> result = routeOptimizationService.createOptimizedRoutes(
-                null,
-                new ArrayList<>(),
-                new ArrayList<>()
-        );
+    void optimizeRoute_returnsEmptyList_whenNoOrdersProvided() throws Exception {
+        Warehouse warehouse = warehouseRepository.findAll()
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("No warehouse found in test data"));
 
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(routeRepository, never()).save(any(Route.class));
+        User driver = userRepository.findByRole(User.Role.DRIVER)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("No DRIVER user found in test data"));
+
+        ObjectNode requestJson = objectMapper.createObjectNode();
+        requestJson.put("warehouseId", warehouse.getWarehouseId());
+        requestJson.putArray("orderIds");
+        requestJson.putArray("driverIds").add(driver.getUserId());
+
+        MvcResult result = mockMvc.perform(
+                        post("/route/optimize")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(requestJson.toString())
+                )
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JsonNode response = objectMapper.readTree(result.getResponse().getContentAsString());
+
+        assertTrue(response.isArray(), "Expected array response");
+        assertEquals(0, response.size(), "Expected empty list when no orders provided");
     }
 
     @Test
-    void createOptimizedRoutes_returnsEmptyList_whenOrdersAreEmpty() {
-        Warehouse warehouse = buildWarehouse(43.6532, -79.3832);
+    void optimizeRoute_returnsEmptyList_whenNoDriversProvided() throws Exception {
+        Warehouse warehouse = warehouseRepository.findAll()
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("No warehouse found in test data"));
 
-        List<Route> result = routeOptimizationService.createOptimizedRoutes(
-                warehouse,
-                new ArrayList<>(),
-                List.of(buildDriver("driver1"))
-        );
+        ObjectNode requestJson = objectMapper.createObjectNode();
+        requestJson.put("warehouseId", warehouse.getWarehouseId());
+        requestJson.putArray("driverIds");
+        requestJson.putArray("orderIds").add(1).add(2);
 
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(routeRepository, never()).save(any(Route.class));
+        MvcResult result = mockMvc.perform(
+                        post("/route/optimize")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(requestJson.toString())
+                )
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JsonNode response = objectMapper.readTree(result.getResponse().getContentAsString());
+
+        assertTrue(response.isArray(), "Expected array response");
+        assertEquals(0, response.size(), "Expected empty list when no drivers provided");
     }
 
     @Test
-    void createOptimizedRoutes_returnsEmptyList_whenDriversAreEmpty() {
-        Warehouse warehouse = buildWarehouse(43.6532, -79.3832);
+    void optimizeRoute_createsAndSavesRoutes_whenValidInputProvided() throws Exception {
+        // 1) Find seeded warehouse
+        Warehouse warehouse = warehouseRepository.findAll()
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("No warehouse found in test data"));
 
-        List<Order> orders = List.of(
-                buildPickupOrder(43.7000, -79.4000),
-                buildDropoffOrder(43.7200, -79.4200)
-        );
+        // 2) Find seeded drivers
+        List<User> drivers = userRepository.findByRole(User.Role.DRIVER);
+        assertTrue(drivers.size() >= 2, "Expected at least 2 DRIVER users in test data");
 
-        List<Route> result = routeOptimizationService.createOptimizedRoutes(
-                warehouse,
-                orders,
-                new ArrayList<>()
-        );
+        // 3) Build request with warehouse, drivers, and seeded order IDs
+        ObjectNode requestJson = objectMapper.createObjectNode();
+        requestJson.put("warehouseId", warehouse.getWarehouseId());
 
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(routeRepository, never()).save(any(Route.class));
-    }
+        var driverIds = requestJson.putArray("driverIds");
+        driverIds.add(drivers.get(0).getUserId());
+        driverIds.add(drivers.get(1).getUserId());
 
-    @Test
-    void createOptimizedRoutes_savesRoutesSuccessfully() {
-        Warehouse warehouse = buildWarehouse(43.6532, -79.3832);
+        // Use order IDs seeded in the test database
+        var orderIds = requestJson.putArray("orderIds");
+        orderIds.add(1).add(2).add(3).add(4);
 
-        User driver1 = buildDriver("driver1@test.com");
-        User driver2 = buildDriver("driver2@test.com");
+        // 4) Call optimize endpoint
+        MvcResult result = mockMvc.perform(
+                        post("/route/optimize")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(requestJson.toString())
+                )
+                .andExpect(status().isOk())
+                .andReturn();
 
-        Order pickup1 = buildPickupOrder(43.7000, -79.4000);
-        Order pickup2 = buildPickupOrder(43.7100, -79.4100);
-        Order dropoff1 = buildDropoffOrder(43.7200, -79.4200);
-        Order dropoff2 = buildDropoffOrder(43.7300, -79.4300);
+        JsonNode response = objectMapper.readTree(result.getResponse().getContentAsString());
 
-        List<Order> orders = List.of(pickup1, pickup2, dropoff1, dropoff2);
-        List<User> drivers = List.of(driver1, driver2);
+        // 5) Assert response shape
+        assertTrue(response.isArray(), "Expected array of routes");
+        assertEquals(2, response.size(), "Expected one route per driver");
 
-        when(routeRepository.save(any(Route.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        // 6) Assert each route has required fields and is persisted in DB
+        for (JsonNode routeNode : response) {
+            assertTrue(routeNode.has("routeId"), "Route should have a routeId");
+            assertTrue(routeNode.has("stops"), "Route should contain stops");
+            assertTrue(routeNode.get("stops").isArray(), "Stops should be an array");
+            assertTrue(routeNode.get("stops").size() > 0, "Route should have at least one stop");
 
-        List<Route> result = routeOptimizationService.createOptimizedRoutes(warehouse, orders, drivers);
+            long routeId = routeNode.get("routeId").asLong();
 
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        verify(routeRepository, times(2)).save(any(Route.class));
-    }
+            // 7) Double-check from database
+            Route savedRoute = routeRepository.findById(routeId)
+                    .orElseThrow(() -> new AssertionError("Route " + routeId + " not found in DB after optimization"));
 
-    private Warehouse buildWarehouse(double lat, double lon) {
-        Address address = new Address();
-        address.setLatitude(lat);
-        address.setLongitude(lon);
-
-        Warehouse warehouse = new Warehouse();
-        warehouse.setAddress(address);
-
-        return warehouse;
-    }
-
-    private User buildDriver(String email) {
-        User u = new User();
-        u.setEmail(email);
-        return u;
-    }
-
-    private Order buildPickupOrder(double lat, double lon) {
-        Address address = new Address();
-        address.setLatitude(lat);
-        address.setLongitude(lon);
-
-        Order order = new Order();
-        order.setDropoffAddress(address);
-        order.setLocationStatus(Order.LocationStatus.FOR_PICKUP);
-        return order;
-    }
-
-    private Order buildDropoffOrder(double lat, double lon) {
-        Address address = new Address();
-        address.setLatitude(lat);
-        address.setLongitude(lon);
-
-        Order order = new Order();
-        order.setDropoffAddress(address);
-        order.setLocationStatus(Order.LocationStatus.AT_WAREHOUSE);
-        return order;
+            assertNotNull(savedRoute.getDriver(), "Saved route should have an assigned driver");
+        }
     }
 }

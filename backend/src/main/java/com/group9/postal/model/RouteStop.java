@@ -49,7 +49,7 @@ public class RouteStop {
     @Nullable
     private LocalDateTime completedTime;
 
-    @OneToMany(mappedBy = "routeStop")
+    //@OneToMany(mappedBy = "routeStop")
     @JsonManagedReference
     private List<StopShipment> stopShipments = new ArrayList<>();
 

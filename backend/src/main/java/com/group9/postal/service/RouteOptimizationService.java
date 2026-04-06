@@ -183,7 +183,7 @@ public class RouteOptimizationService {
 
             Route route = new Route();
             route.setWarehouse(warehouse);
-            route.setRouteStatus("SCHEDULED");
+            route.setRouteStatus(Route.Status.SCHEDULED);
             route.setDriver(driver);
             route.setStops(optimizedOrders);
             route.setPlannedStartTime(null);
@@ -202,7 +202,7 @@ public class RouteOptimizationService {
 
             Route route = new Route();
             route.setWarehouse(warehouse);
-            route.setRouteStatus("SCHEDULED");
+            route.setRouteStatus(Route.Status.SCHEDULED);
             route.setDriver(driver);
             route.setStops(optimizedOrders);
             route.setPlannedStartTime(null);
