@@ -380,3 +380,15 @@ INSERT INTO review (reviewId, orderId, customerId, rating, comment, createdAt) V
    (12, 3, 3, 3, 'Package came safely, nothing special but no issues either.', CURRENT_TIMESTAMP),
    (13, 4, 4, 4, 'Really smooth experience, driver was friendly and professional.', CURRENT_TIMESTAMP),
    (14, 5, 5, 5, 'Perfect delivery. Fast, accurate, and great communication throughout.', CURRENT_TIMESTAMP);
+
+
+ALTER TABLE users ALTER COLUMN userId RESTART WITH 11;
+ALTER TABLE address ALTER COLUMN addressId RESTART WITH 24;
+ALTER TABLE warehouse ALTER COLUMN warehouseId RESTART WITH 11;
+ALTER TABLE vehicle ALTER COLUMN vehicleId RESTART WITH 11;
+ALTER TABLE orders ALTER COLUMN orderId RESTART WITH 41;
+ALTER TABLE shipment ALTER COLUMN shipmentId RESTART WITH 41;
+ALTER TABLE route ALTER COLUMN routeId RESTART WITH 14;
+ALTER TABLE route_stop ALTER COLUMN stopId RESTART WITH 110;
+ALTER TABLE tracking_event ALTER COLUMN eventId RESTART WITH 50;
+ALTER TABLE review ALTER COLUMN reviewId RESTART WITH 15;
