@@ -1,12 +1,20 @@
 package com.group9.postal.controller;
 
+import com.group9.postal.controller.exceptions.RouteNotFoundException;
 import com.group9.postal.dto.RouteDTO;
+import com.group9.postal.model.*;
+import com.group9.postal.repository.OrderRepository;
+import com.group9.postal.repository.UserRepository;
+import com.group9.postal.repository.WarehouseRepository;
+import com.group9.postal.service.RouteOptimizationService;
 import com.group9.postal.service.RouteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -16,6 +24,27 @@ public class RouteController {
     @Autowired
     private RouteService routeService;
 
+    private final WarehouseRepository warehouseRepository;
+
+    private final UserRepository userRepository;
+
+    private final OrderRepository orderRepository;
+
+    private final RouteOptimizationService optimizationService;
+
+    @Autowired
+    public RouteController(WarehouseRepository warehouseRepository,
+                           UserRepository userRepository,
+                           OrderRepository orderRepository,
+                           RouteOptimizationService optimizationService,
+                           RouteService routeService) {
+
+        this.warehouseRepository = warehouseRepository;
+        this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
+        this.optimizationService = optimizationService;
+        this.routeService = routeService;
+    }
     @GetMapping
     public List<RouteDTO> getAllRoutes() {
         return routeService.getAllRoutes();
@@ -47,6 +76,25 @@ public class RouteController {
         routeService.deleteRoute(id);
     }
 
+    @PostMapping("/optimize")
+    public List<Route> optimizeRoute(@RequestBody java.util.Map<String, Object> request) {
+        Long warehouseId = ((Number) request.get("warehouseId")).longValue();
+        List<Integer> driverIdInts = (List<Integer>) request.get("driverIds");
+        List<Integer> orderIdInts = (List<Integer>) request.get("orderIds");
+
+        List<Long> driverIds = driverIdInts.stream().map(Long::valueOf).collect(Collectors.toList());
+        List<Long> orderIds = orderIdInts.stream().map(Long::valueOf).collect(Collectors.toList());
+
+        Warehouse warehouse = warehouseRepository.findById(warehouseId).orElse(null);
+        if (warehouse == null || orderIds.isEmpty() || driverIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<User> drivers = userRepository.findAllById(driverIds);
+        List<Order> orders = orderRepository.findAllById(orderIds);
+
+        return optimizationService.createOptimizedRoutes(warehouse, orders, drivers);
+    }
 
     /**
     @PostMapping("/route/{id}/optimize")

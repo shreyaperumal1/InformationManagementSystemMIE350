@@ -160,8 +160,11 @@ public class RouteService {
         dto.setWarehouseId(route.getWarehouse().getWarehouseId());
         dto.setPlannedStartTime(route.getPlannedStartTime());
         dto.setPlannedEndTime(route.getPlannedEndTime());
-        route.setRouteStatus(Route.Status.valueOf(dto.getRouteStatus()));
-        dto.setStops(
+        dto.setRouteStatus(
+                route.getRouteStatus() != null
+                        ? route.getRouteStatus().name()
+                        : Route.Status.SCHEDULED.name()
+        );        dto.setStops(
                 route.getStops().stream()
                         .map(this::toDTO)
                         .toList()
