@@ -26,14 +26,15 @@ public class RouteOptimizationService {
     private RouteRepository routeRepository;
 
     private List<List<Order>> splitPickupDelivery(List<Order> currentOrders) {
-        int order_count = currentOrders.size();
         List<Order> pickups = new ArrayList<>();
         List<Order> deliveries = new ArrayList<>();
+
         for (Order order : currentOrders) {
+            if (order.getLocationStatus() == null) continue; // skip orders with no status
+
             if (order.getLocationStatus().equals(Order.LocationStatus.FOR_PICKUP)) {
                 pickups.add(order);
-            }
-            else if (order.getLocationStatus().equals(Order.LocationStatus.AT_WAREHOUSE)) {
+            } else if (order.getLocationStatus().equals(Order.LocationStatus.AT_WAREHOUSE)) {
                 deliveries.add(order);
             }
         }

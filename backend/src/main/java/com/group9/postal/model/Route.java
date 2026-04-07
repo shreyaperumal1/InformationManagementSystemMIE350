@@ -1,6 +1,7 @@
 package com.group9.postal.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,7 +43,7 @@ public class Route {
     }
 
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+    @NotNull
     private Status routeStatus;
 
     @OneToMany(mappedBy = "route")
