@@ -56,8 +56,7 @@ public class RouteService {
 
         route.setPlannedStartTime(dto.getPlannedStartTime());
         route.setPlannedEndTime(dto.getPlannedEndTime());
-        route.setRouteStatus(dto.getRouteStatus());
-
+        route.setRouteStatus(Route.Status.valueOf(dto.getRouteStatus()));
         // ========================
         // STOPS LOOP
         // ========================
@@ -161,8 +160,7 @@ public class RouteService {
         dto.setWarehouseId(route.getWarehouse().getWarehouseId());
         dto.setPlannedStartTime(route.getPlannedStartTime());
         dto.setPlannedEndTime(route.getPlannedEndTime());
-        dto.setRouteStatus(route.getRouteStatus());
-
+        route.setRouteStatus(Route.Status.valueOf(dto.getRouteStatus()));
         dto.setStops(
                 route.getStops().stream()
                         .map(this::toDTO)
