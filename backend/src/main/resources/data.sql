@@ -11,31 +11,32 @@ INSERT INTO users (name, email, passwordHash, role, phone) VALUES
     ('Ilora Scott', 'ilora@postal.com', 'password123', 'DRIVER', '123-456-0909'),
     ('Jimmy John', 'jimmy@gmail.com', 'password123', 'CUSTOMER', '123-456-1010');
 -- Address
-INSERT INTO address (addressId, buildingType, aptNum, streetNum, streetName, streetType, city, provinceState, country, postalZip) VALUES
-    (1, 'WAREHOUSE', null, 178, 'High Park', 'AVENUE', 'Toronto', 'Ontario', 'Canada', 'M6P2S4'),
-    (2, 'WAREHOUSE', null, 4415, 'Mississauga', 'ROAD', 'Mississauga', 'Ontario', 'Canada', 'L5M3G8'),
-    (3, 'WAREHOUSE', null, 900, 'Markham', 'ROAD', 'Scarborough', 'Ontario', 'Canada', 'M1H2Y2'),
-    (4, 'WAREHOUSE', null, 25, 'Peel Centre', 'DRIVE', 'Brampton', 'Ontario', 'Canada', 'L6T3R5'),
-    (5, 'WAREHOUSE', null, 2420, 'Sixth', 'LINE', 'Oakville', 'Ontario', 'Canada', 'L6H5Z8'),
-    (6, 'WAREHOUSE', null, 1866, 'Liverpool', 'ROAD', 'Pickering', 'Ontario', 'Canada', 'L1V1W3'),
-    (7, 'WAREHOUSE', null, 1, 'Wellington', 'STREET', 'Ottawa', 'Ontario', 'Canada', 'K1A0A9'),
-    (8, 'WAREHOUSE', null, 1127, 'Mont-Royal', 'AVENUE', 'Montreal', 'Quebec', 'Canada', 'H2J1X9'),
-    (9, 'WAREHOUSE', null, 4852, 'Clifton', 'HILL', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3N4'),
-    (10, 'WAREHOUSE', null, 1235, 'Richmond', 'STREET', 'London', 'Ontario', 'Canada', 'N6A0C1'),
-    (11, 'APARTMENT', 1902, 5785, 'Victoria', 'AVENUE', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3L6'),
-    (12, 'HOTEL', '22A', 99, 'Wellesley', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M7A1W3'),
-    (13, 'HOUSE', null, 140, 'King', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5H3Y2'),
-    (14, 'HOUSE', null, 33, 'Yonge', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5E1G4'),
-    (15, 'HOUSE', null, 6360, 'Hawthorne', 'DRIVE', 'Windsor', 'Ontario', 'Canada', 'N8T1J9'),
-    (16, 'HOUSE', null, 50, 'Ouellette', 'AVENUE', 'Windsor', 'Ontario', 'Canada', 'N9A6T3'),
-    (17, 'HOUSE', null, 100, 'King', 'STREET', 'Hamilton', 'Ontario', 'Canada', 'L8P1A2'),
-    (18, 'HOUSE', null, 555, 'University', 'AVENUE', 'Toronto', 'Ontario', 'Canada', 'M5G1X8'),
-    (19, 'HOUSE', null, 200, 'Dundas', 'STREET', 'Belleville', 'Ontario', 'Canada', 'K8N1E4'),
-    (20, 'HOUSE', null, 181, 'Queen', 'STREET', 'Kitchener', 'Ontario', 'Canada', 'N2H2H2'),
-    (21, 'HOUSE', null, 1, 'Stone', 'ROAD', 'Guelph', 'Ontario', 'Canada', 'N1G2W1'),
-    (22, 'HOUSE', null, 10, 'Dundas', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5B2G9'),
-    (23, 'HOUSE', null, 77, 'Bay', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5J2S1');
--- Warehouses
+INSERT INTO address (addressId, buildingType, aptNum, streetNum, streetName, streetType, city, provinceState, country, postalZip, latitude, longitude) VALUES
+    (1, 'WAREHOUSE', null, 178, 'High Park', 'AVENUE', 'Toronto', 'Ontario', 'Canada', 'M6P2S4', 43.6532, -79.4650),
+    (2, 'WAREHOUSE', null, 4415, 'Mississauga', 'ROAD', 'Mississauga', 'Ontario', 'Canada', 'L5M3G8', 43.5890, -79.6441),
+    (3, 'WAREHOUSE', null, 900, 'Markham', 'ROAD', 'Scarborough', 'Ontario', 'Canada', 'M1H2Y2', 43.7700, -79.2600),
+    (4, 'WAREHOUSE', null, 25, 'Peel Centre', 'DRIVE', 'Brampton', 'Ontario', 'Canada', 'L6T3R5', 43.7315, -79.7624),
+    (5, 'WAREHOUSE', null, 2420, 'Sixth', 'LINE', 'Oakville', 'Ontario', 'Canada', 'L6H5Z8', 43.4470, -79.7260),
+    (6, 'WAREHOUSE', null, 1866, 'Liverpool', 'ROAD', 'Pickering', 'Ontario', 'Canada', 'L1V1W3', 43.8384, -79.0870),
+    (7, 'WAREHOUSE', null, 1, 'Wellington', 'STREET', 'Ottawa', 'Ontario', 'Canada', 'K1A0A9', 45.4236, -75.7009),
+    (8, 'WAREHOUSE', null, 1127, 'Mont-Royal', 'AVENUE', 'Montreal', 'Quebec', 'Canada', 'H2J1X9', 45.5260, -73.5730),
+    (9, 'WAREHOUSE', null, 4852, 'Clifton', 'HILL', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3N4', 43.0896, -79.0849),
+    (10, 'WAREHOUSE', null, 1235, 'Richmond', 'STREET', 'London', 'Ontario', 'Canada', 'N6A0C1', 42.9849, -81.2453),
+
+    (11, 'APARTMENT', 1902, 5785, 'Victoria', 'AVENUE', 'Niagara Falls', 'Ontario', 'Canada', 'L2G3L6', 43.0912, -79.0845),
+    (12, 'HOTEL', '22A', 99, 'Wellesley', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M7A1W3', 43.6645, -79.3830),
+    (13, 'HOUSE', null, 140, 'King', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5H3Y2', 43.6487, -79.3800),
+    (14, 'HOUSE', null, 33, 'Yonge', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5E1G4', 43.6475, -79.3777),
+    (15, 'HOUSE', null, 6360, 'Hawthorne', 'DRIVE', 'Windsor', 'Ontario', 'Canada', 'N8T1J9', 42.3150, -82.9700),
+    (16, 'HOUSE', null, 50, 'Ouellette', 'AVENUE', 'Windsor', 'Ontario', 'Canada', 'N9A6T3', 42.3170, -83.0350),
+    (17, 'HOUSE', null, 100, 'King', 'STREET', 'Hamilton', 'Ontario', 'Canada', 'L8P1A2', 43.2557, -79.8711),
+    (18, 'HOUSE', null, 555, 'University', 'AVENUE', 'Toronto', 'Ontario', 'Canada', 'M5G1X8', 43.6580, -79.3890),
+    (19, 'HOUSE', null, 200, 'Dundas', 'STREET', 'Belleville', 'Ontario', 'Canada', 'K8N1E4', 44.1628, -77.3832),
+    (20, 'HOUSE', null, 181, 'Queen', 'STREET', 'Kitchener', 'Ontario', 'Canada', 'N2H2H2', 43.4516, -80.4925),
+    (21, 'HOUSE', null, 1, 'Stone', 'ROAD', 'Guelph', 'Ontario', 'Canada', 'N1G2W1', 43.5300, -80.2230),
+    (22, 'HOUSE', null, 10, 'Dundas', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5B2G9', 43.6561, -79.3802),
+    (23, 'HOUSE', null, 77, 'Bay', 'STREET', 'Toronto', 'Ontario', 'Canada', 'M5J2S1', 43.6435, -79.3780);
+    -- Warehouses
 INSERT INTO warehouse (warehouseId, name, addressId, capacityMaxPackages, region) VALUES
     (1, 'Toronto Warehouse', 1 , 5000, 'Toronto'),
     (2, 'Mississauga Warehouse', 2, 2000, 'Mississauga'),
@@ -60,48 +61,47 @@ INSERT INTO vehicle (vehicleId, plate, type, capacityWeight, capacityVolume) VAL
     (9,'GHIJ 333','VAN',520.0,10.5),
     (10,'KLMN 444','TRUCK',2500.0,50.0);
 -- Orders (1,2,6,7,10 Ids are customers)
-INSERT INTO orders (createdAt, pickupAddress, dropoffAddress, customer_id, contactName, contactEmail, contactPhone, totalCost, orderStatus) VALUES
-    (CURRENT_TIMESTAMP, 23, 20, 1,  'Alice Johnson',  'alice@email.com',  '416-555-0101', 25.50, 'Verified'),
-    (CURRENT_TIMESTAMP, 13, 17, 2,  'Bob Smith',      'bob@email.com',    '416-555-0102', 18.75, 'Drop Off'),
-    (CURRENT_TIMESTAMP, 14, 15, 6,  'Carol Lee',      'carol@email.com',  '416-555-0103', 42.00, 'En Route'),
-    (CURRENT_TIMESTAMP, 16, 18, 7,  'David Park',     'david@email.com',  '416-555-0104', 21.30, 'Pending'),
-    (CURRENT_TIMESTAMP, 19, 21, 10, 'Eve Martinez',   'eve@email.com',    '416-555-0105', 33.90, 'Verified'),
-    (CURRENT_TIMESTAMP, 22, 11, 1,  'Alice Johnson',  'alice@email.com',  '416-555-0101', 27.45, 'En Route'),
-    (CURRENT_TIMESTAMP, 20, 23, 2,  'Bob Smith',      'bob@email.com',    '416-555-0102', 16.80, 'Drop Off'),
-    (CURRENT_TIMESTAMP, 17, 16, 6,  'Carol Lee',      'carol@email.com',  '416-555-0103', 24.60, 'Verified'),
-    (CURRENT_TIMESTAMP, 15, 19, 7,  'David Park',     'david@email.com',  '416-555-0104', 38.25, 'Pending'),
-    (CURRENT_TIMESTAMP, 18, 13, 10, 'Eve Martinez',   'eve@email.com',    '416-555-0105', 19.99, 'Verified'),
-    (CURRENT_TIMESTAMP, 12, 22, 2, 'Test User 11', 'user11@email.com', '416-555-1011', 58.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 13, 20, 3, 'Test User 12', 'user12@email.com', '416-555-1012', 62.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 14, 21, 4, 'Test User 13', 'user13@email.com', '416-555-1013', 65.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 15, 22, 5, 'Test User 14', 'user14@email.com', '416-555-1014', 69.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 16, 20, 1, 'Test User 15', 'user15@email.com', '416-555-1015', 72.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 17, 21, 2, 'Test User 16', 'user16@email.com', '416-555-1016', 76.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 18, 22, 3, 'Test User 17', 'user17@email.com', '416-555-1017', 79.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 19, 20, 4, 'Test User 18', 'user18@email.com', '416-555-1018', 83.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 20, 21, 5, 'Test User 19', 'user19@email.com', '416-555-1019', 86.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 11, 22, 1, 'Test User 20', 'user20@email.com', '416-555-1020', 90.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 12, 20, 2, 'Test User 21', 'user21@email.com', '416-555-1021', 93.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 13, 21, 3, 'Test User 22', 'user22@email.com', '416-555-1022', 97.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 14, 22, 4, 'Test User 23', 'user23@email.com', '416-555-1023', 100.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 15, 20, 5, 'Test User 24', 'user24@email.com', '416-555-1024', 104.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 16, 21, 1, 'Test User 25', 'user25@email.com', '416-555-1025', 107.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 17, 22, 2, 'Test User 26', 'user26@email.com', '416-555-1026', 111.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 18, 20, 3, 'Test User 27', 'user27@email.com', '416-555-1027', 114.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 19, 21, 4, 'Test User 28', 'user28@email.com', '416-555-1028', 118.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 20, 22, 5, 'Test User 29', 'user29@email.com', '416-555-1029', 121.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 11, 20, 1, 'Test User 30', 'user30@email.com', '416-555-1030', 125.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 12, 21, 2, 'Test User 31', 'user31@email.com', '416-555-1031', 128.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 13, 22, 3, 'Test User 32', 'user32@email.com', '416-555-1032', 132.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 14, 20, 4, 'Test User 33', 'user33@email.com', '416-555-1033', 135.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 15, 21, 5, 'Test User 34', 'user34@email.com', '416-555-1034', 139.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 16, 22, 1, 'Test User 35', 'user35@email.com', '416-555-1035', 142.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 17, 20, 2, 'Test User 36', 'user36@email.com', '416-555-1036', 146.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 18, 21, 3, 'Test User 37', 'user37@email.com', '416-555-1037', 149.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 19, 22, 4, 'Test User 38', 'user38@email.com', '416-555-1038', 153.0, 'En Route'),
-    (CURRENT_TIMESTAMP, 20, 20, 5, 'Test User 39', 'user39@email.com', '416-555-1039', 156.5, 'En Route'),
-    (CURRENT_TIMESTAMP, 11, 21, 1, 'Test User 40', 'user40@email.com', '416-555-1040', 160.0, 'En Route');
-
+INSERT INTO orders (createdAt, pickupAddress, dropoffAddress, customer_id, contactName, contactEmail, contactPhone, totalCost, orderStatus, locationStatus) VALUES
+    (CURRENT_TIMESTAMP, 23, 20, 1,  'Alice Anderson',  'alice@gmail.com',  '416-555-0101', 25.50,  'Verified',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 13, 17, 2,  'Bob Smith',       'bob@email.com',    '416-555-0102', 18.75,  'Drop Off',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 14, 15, 6,  'Carol Lee',       'carol@email.com',  '416-555-0103', 42.00,  'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 16, 18, 7,  'David Park',      'david@email.com',  '416-555-0104', 21.30,  'Pending',   'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 19, 21, 10, 'Eve Martinez',    'eve@email.com',    '416-555-0105', 33.90,  'Verified',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 22, 11, 1,  'Alice Johnson',   'alice@email.com',  '416-555-0101', 27.45,  'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 20, 23, 2,  'Bob Smith',       'bob@email.com',    '416-555-0102', 16.80,  'Drop Off',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 17, 16, 6,  'Carol Lee',       'carol@email.com',  '416-555-0103', 24.60,  'Verified',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 15, 19, 7,  'David Park',      'david@email.com',  '416-555-0104', 38.25,  'Pending',   'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 18, 13, 10, 'Eve Martinez',    'eve@email.com',    '416-555-0105', 19.99,  'Verified',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 12, 22, 2,  'Test User 11',    'user11@email.com', '416-555-1011', 58.50,  'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 13, 20, 3,  'Test User 12',    'user12@email.com', '416-555-1012', 62.00,  'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 14, 21, 4,  'Test User 13',    'user13@email.com', '416-555-1013', 65.50,  'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 15, 22, 5,  'Test User 14',    'user14@email.com', '416-555-1014', 69.00,  'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 16, 20, 1,  'Test User 15',    'user15@email.com', '416-555-1015', 72.50,  'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 17, 21, 2,  'Test User 16',    'user16@email.com', '416-555-1016', 76.00,  'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 18, 22, 3,  'Test User 17',    'user17@email.com', '416-555-1017', 79.50,  'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 19, 20, 4,  'Test User 18',    'user18@email.com', '416-555-1018', 83.00,  'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 20, 21, 5,  'Test User 19',    'user19@email.com', '416-555-1019', 86.50,  'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 11, 22, 1,  'Test User 20',    'user20@email.com', '416-555-1020', 90.00,  'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 12, 20, 2,  'Test User 21',    'user21@email.com', '416-555-1021', 93.50,  'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 13, 21, 3,  'Test User 22',    'user22@email.com', '416-555-1022', 97.00,  'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 14, 22, 4,  'Test User 23',    'user23@email.com', '416-555-1023', 100.50, 'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 15, 20, 5,  'Test User 24',    'user24@email.com', '416-555-1024', 104.00, 'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 16, 21, 1,  'Test User 25',    'user25@email.com', '416-555-1025', 107.50, 'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 17, 22, 2,  'Test User 26',    'user26@email.com', '416-555-1026', 111.00, 'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 18, 20, 3,  'Test User 27',    'user27@email.com', '416-555-1027', 114.50, 'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 19, 21, 4,  'Test User 28',    'user28@email.com', '416-555-1028', 118.00, 'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 20, 22, 5,  'Test User 29',    'user29@email.com', '416-555-1029', 121.50, 'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 11, 20, 1,  'Test User 30',    'user30@email.com', '416-555-1030', 125.00, 'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 12, 21, 2,  'Test User 31',    'user31@email.com', '416-555-1031', 128.50, 'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 13, 22, 3,  'Test User 32',    'user32@email.com', '416-555-1032', 132.00, 'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 14, 20, 4,  'Test User 33',    'user33@email.com', '416-555-1033', 135.50, 'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 15, 21, 5,  'Test User 34',    'user34@email.com', '416-555-1034', 139.00, 'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 16, 22, 1,  'Test User 35',    'user35@email.com', '416-555-1035', 142.50, 'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 17, 20, 2,  'Test User 36',    'user36@email.com', '416-555-1036', 146.00, 'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 18, 21, 3,  'Test User 37',    'user37@email.com', '416-555-1037', 149.50, 'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 19, 22, 4,  'Test User 38',    'user38@email.com', '416-555-1038', 153.00, 'En Route',  'AT_WAREHOUSE'),
+    (CURRENT_TIMESTAMP, 20, 20, 5,  'Test User 39',    'user39@email.com', '416-555-1039', 156.50, 'En Route',  'FOR_PICKUP'),
+    (CURRENT_TIMESTAMP, 11, 21, 1,  'Test User 40',    'user40@email.com', '416-555-1040', 160.00, 'En Route',  'AT_WAREHOUSE');
 -- Updated statuses
 INSERT INTO shipment (orderId, trackingNumber, type, weight, volume, fragileFlag, currentStatus, currentWarehouseId) VALUES
     (1,  'TRK-000001', 'PARCEL', 2.5, 0.50, false, 'Pending Pickup', 1),
@@ -380,3 +380,15 @@ INSERT INTO review (reviewId, orderId, customerId, rating, comment, createdAt) V
    (12, 3, 3, 3, 'Package came safely, nothing special but no issues either.', CURRENT_TIMESTAMP),
    (13, 4, 4, 4, 'Really smooth experience, driver was friendly and professional.', CURRENT_TIMESTAMP),
    (14, 5, 5, 5, 'Perfect delivery. Fast, accurate, and great communication throughout.', CURRENT_TIMESTAMP);
+
+
+ALTER TABLE users ALTER COLUMN userId RESTART WITH 11;
+ALTER TABLE address ALTER COLUMN addressId RESTART WITH 24;
+ALTER TABLE warehouse ALTER COLUMN warehouseId RESTART WITH 11;
+ALTER TABLE vehicle ALTER COLUMN vehicleId RESTART WITH 11;
+ALTER TABLE orders ALTER COLUMN orderId RESTART WITH 41;
+ALTER TABLE shipment ALTER COLUMN shipmentId RESTART WITH 41;
+ALTER TABLE route ALTER COLUMN routeId RESTART WITH 14;
+ALTER TABLE route_stop ALTER COLUMN stopId RESTART WITH 110;
+ALTER TABLE tracking_event ALTER COLUMN eventId RESTART WITH 50;
+ALTER TABLE review ALTER COLUMN reviewId RESTART WITH 15;

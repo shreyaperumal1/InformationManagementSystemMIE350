@@ -1,6 +1,7 @@
 package com.group9.postal.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,16 +36,23 @@ public class Route {
     @Nullable
     private LocalDateTime plannedEndTime;
 
-    @NotEmpty
-    private String routeStatus;
+    public enum Status {
+        SCHEDULED,
+        IN_PROGRESS,
+        COMPLETE
+    }
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Status routeStatus;
 
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<RouteStop> stops;
+    private List<RouteStop> stops = new ArrayList<>();
 
     public Route(User driver, Warehouse warehouse, String routeType,
                  LocalDateTime plannedStartTime, LocalDateTime plannedEndTime,
-                 String routeStatus, List<RouteStop> stops) {
+                 Status routeStatus, List<RouteStop> stops) {
         this.driver = driver;
         this.warehouse = warehouse;
         this.plannedStartTime = plannedStartTime;

@@ -46,4 +46,37 @@ public class RouteController {
     public void deleteRoute(@PathVariable Long id) {
         routeService.deleteRoute(id);
     }
+
+
+    /**
+    @PostMapping("/route/{id}/optimize")
+    public List<RouteStop> optimizeRoute(@PathVariable Long id) {
+        Route route = repository.findById(id)
+                .orElseThrow(() -> new RouteNotFoundException(id));
+
+        Address warehouse = route.getWarehouse().getAddress();
+        List<Address> stopAddresses = route.getStops().stream()
+                .map(stop -> stop.getAddress())
+                .collect(Collectors.toList());
+
+        List<Address> optimized = optimizationService.runOptimizer(
+                warehouse, stopAddresses
+        );
+
+        // Update stop sequence based on optimized order
+        for (int i = 0; i < optimized.size(); i++) {
+            Address currentAddress = optimized.get(i);
+
+            RouteStop stop = route.getStops().stream()
+                    .filter(s -> s.getAddress().equals(currentAddress))
+                    .findFirst()
+                    .orElseThrow();
+
+            stop.setStopSequence(i + 1);
+            stopRepository.save(stop);
+        }
+
+        return route.getStops();
+    }
+    ***/
 }

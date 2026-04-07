@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @NoArgsConstructor
@@ -25,7 +27,7 @@ public class Address {
         HOTEL,
         WAREHOUSE,
         OTHER
-    };
+    }
 
     @Enumerated(EnumType.STRING)
     private BuildingType buildingType;
@@ -53,6 +55,7 @@ public class Address {
         HILL
     };
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private StreetType streetType;
 
@@ -68,26 +71,29 @@ public class Address {
     @NotEmpty
     private String postalZip;
 
+    @NotNull
+    private double longitude;
+
+    @NotNull
+    private double latitude;
+
     public Address(Long addressId,
                    BuildingType buildingType,
                    String aptNum,
-                   int streetNum,
-                   String streetName,
-                   StreetType streetType,
                    String city,
                    String provinceState,
                    String country,
-                   String postalZip) {
-
+                   String postalZip,
+                   double latitude,
+                   double longitude) {
         this.addressId = addressId;
-        this.buildingType = buildingType;
         this.aptNum = aptNum;
-        this.streetNum = streetNum;
-        this.streetName = streetName;
-        this.streetType = streetType;
         this.city = city;
+        this.buildingType = buildingType;
         this.provinceState = provinceState;
         this.country = country;
         this.postalZip = postalZip;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 }
