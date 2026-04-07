@@ -62,7 +62,7 @@ INSERT INTO vehicle (vehicleId, plate, type, capacityWeight, capacityVolume) VAL
     (10,'KLMN 444','TRUCK',2500.0,50.0);
 -- Orders (1,2,6,7,10 Ids are customers)
 INSERT INTO orders (createdAt, pickupAddress, dropoffAddress, customer_id, contactName, contactEmail, contactPhone, totalCost, orderStatus) VALUES
-    (CURRENT_TIMESTAMP, 23, 20, 1,  'Alice Johnson',  'alice@email.com',  '416-555-0101', 25.50, 'Verified'),
+    (CURRENT_TIMESTAMP, 23, 20, 1,  'Alice Anderson',  'alice@gmail.com',  '416-555-0101', 25.50, 'Verified'),
     (CURRENT_TIMESTAMP, 13, 17, 2,  'Bob Smith',      'bob@email.com',    '416-555-0102', 18.75, 'Drop Off'),
     (CURRENT_TIMESTAMP, 14, 15, 6,  'Carol Lee',      'carol@email.com',  '416-555-0103', 42.00, 'En Route'),
     (CURRENT_TIMESTAMP, 16, 18, 7,  'David Park',     'david@email.com',  '416-555-0104', 21.30, 'Pending'),
