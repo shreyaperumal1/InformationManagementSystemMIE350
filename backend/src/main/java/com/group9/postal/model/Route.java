@@ -38,9 +38,9 @@ public class Route {
     @NotEmpty
     private String routeStatus;
 
-    @OneToMany(mappedBy = "route")
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<RouteStop> stops = new ArrayList<>();
+    private List<RouteStop> stops;
 
     public Route(User driver, Warehouse warehouse, String routeType,
                  LocalDateTime plannedStartTime, LocalDateTime plannedEndTime,

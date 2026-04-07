@@ -34,7 +34,7 @@ public class RouteStop {
     @JoinColumn(name = "stopAddress")
     private Address address;
 
-    private enum StopType {
+    public enum StopType {
         PICKUP,
         DELIVERY
     };
@@ -48,7 +48,11 @@ public class RouteStop {
     @Nullable
     private LocalDateTime completedTime;
 
-    @OneToMany(mappedBy = "routeStop")
+    @OneToMany(
+            mappedBy = "routeStop",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     @JsonManagedReference
     private List<StopShipment> stopShipments = new ArrayList<>();
 

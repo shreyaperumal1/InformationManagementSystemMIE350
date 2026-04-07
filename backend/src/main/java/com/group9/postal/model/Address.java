@@ -18,7 +18,7 @@ public class Address {
     private Long addressId;
 
     @NotEmpty
-    private enum BuildingType {
+    public enum BuildingType {
         HOUSE,
         APARTMENT,
         OFFICE,
@@ -37,7 +37,7 @@ public class Address {
     @NotEmpty
     private String streetName;
 
-    private enum StreetType{
+    public enum StreetType{
         DRIVE,
         AVENUE,
         BOULEVARD,

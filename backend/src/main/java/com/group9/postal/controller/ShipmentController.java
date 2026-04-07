@@ -3,6 +3,7 @@ package com.group9.postal.controller;
 import com.group9.postal.controller.exceptions.ShipmentNotFoundException;
 import com.group9.postal.model.Shipment;
 import com.group9.postal.repository.ShipmentRepository;
+import com.group9.postal.service.ShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,9 +13,12 @@ import java.util.List;
 public class ShipmentController {
     @Autowired
     private final ShipmentRepository repository;
+    private final ShipmentService shipmentService;
 
-    public ShipmentController(ShipmentRepository repository) {
+
+    public ShipmentController(ShipmentRepository repository, ShipmentService shipmentService) {
         this.repository = repository;
+        this.shipmentService = shipmentService;
     }
 
     @GetMapping("/shipment")
@@ -37,6 +41,13 @@ public class ShipmentController {
     @GetMapping("/shipment/status/{status}")
     List<Shipment> retrieveShipmentsByStatus(@PathVariable("status") String status) {
         return repository.findByCurrentStatus(status);
+    }
+    @GetMapping("/filter")
+    public List<Shipment> getByStatusAndAddress(
+            @RequestParam String status,
+            @RequestParam Long addressId) {
+
+        return shipmentService.getShipmentsByStatusAndAddress(status, addressId);
     }
 
     @PostMapping("/shipment")
